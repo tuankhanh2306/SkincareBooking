@@ -8,13 +8,17 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
+
+      # Database - Cần nhập tay trên Dashboard
       - key: DATABASE_URL
         sync: false
       - key: DATABASE_USERNAME
         sync: false
       - key: DATABASE_PASSWORD
         sync: false
+
+      # Secrets - Cần nhập tay trên Dashboard
       - key: JWT_SECRET
-        value: ThisIsMySuperSecretKeyForJWT1234567890a
-      - key: SERVER_PORT
-        value: 8080
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false

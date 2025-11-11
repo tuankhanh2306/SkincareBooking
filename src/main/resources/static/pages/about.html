@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới thiệu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bungee+Tint&family=Dancing+Script:wght@400..700&family=Lobster&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+</head>
+<style>
+  /* Reset CSS */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    color: #333;
+    line-height: 1.6;
+  }
+
+
+
+  /* Header & Navigation */
+  header {
+    background-color: rgb(245, 111, 133);
+    text-align: center;
+    padding: 20px;
+    opacity: 1;
+  }
+
+  .h1-first{
+    color: white;
+    font-size: 40px;
+  }
+
+  nav ul li::before {
+    content: none;
+  }
+
+  nav ul li {
+    display: inline;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    transition: 0.3s;
+  }
+
+  nav ul li a:hover {
+    background-color: #e74c3c;
+    border-radius: 5px;
+  }
+
+  nav ul li a:hover {
+    background-color: #e74c3c;
+    border-radius: 5px;
+  }
+
+  /*section*/
+
+
+
+  /* Footer */
+  footer{
+    background-color: rgb(245, 111, 133);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+  }
+
+
+  footer p {
+    margin: 0;
+  }
+
+  footer a {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .khai-truong{
+    background-image: url('../img/Blue Gold Elegant Happy Wedding Greeting Card.png');
+    background-attachment: fixed;
+    background-color: rgb(188, 188, 188);
+    background-blend-mode: multiply;
+    width: 100%;
+    height: 400px;
+    position: relative;
+    margin: 10px 10px;
+    border-radius: 10px;
+  }
+
+  .h1-last{
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 23%;
+    top: 150px;
+    font-size: 60px;
+  }
+
+  .p-first{
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 45%;
+    top: 250px;
+  }
+
+  section h2{
+    font-family: "Dancing Script", cursive;
+    font-size: 50px;
+    text-align: center;
+    color: #FF6699;
+  }
+
+  .promotion{
+    text-align: left;
+
+  }
+  /*Giảm giá bên trái*/
+  .promotion{
+    margin-top: 50px;
+    display: flex;
+  }
+  .anh-giam-gia{
+    background-image: url('../img/Pink And Green Modern Skincare Sale Poster (2).png');
+    background-size: cover;
+    width: 500px;
+    margin-left: 30px;
+    position: relative;
+    border-radius: 20px;
+  }
+
+  .anh-giam-gia i{
+    z-index: 2;
+    color: black;
+    font-size: 45px;
+    position: absolute;
+    left: 69%;
+    top: 49%;
+    animation: tiltLeft 1s infinite ease-in-out;
+
+
+  }
+  @keyframes tiltLeft {
+    0%, 100% {
+      transform: translateX(0) rotate(0deg);
+    }
+    50% {
+      transform: translateX(-8px) rotate(-5deg);
+    }
+  }
+
+  .booking-now {
+    border: 1px solid;
+    padding: 8px 16px;
+    border-radius: 20px;
+    position: absolute;
+    left: 39%;
+    top: 50%;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    animation: bounce 1s infinite ease-in-out;
+  }
+
+  /* Hiệu ứng nhún */
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+      box-shadow: 0 0 10px rgba(255, 5, 5, 0.8);
+    }
+    50% {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(255, 5, 5, 0.5);
+    }
+  }
+
+
+  .booking-now:hover{
+    background-color: rgb(246, 0, 41);
+  }
+
+  .noi-dung-giam-gia{
+    margin-left: 30px;
+    border: 1px solid pink;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #F5D5CE;
+    width: 1000px;
+  }
+
+
+  /*Nội dung giảm giá*/
+  .child-1{
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px#a15d4d;
+  }
+
+  .child-2{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px#a15d4d;
+
+  }
+  .child-3{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px#a15d4d;
+
+  }
+
+  /*Tiêu Chí*/
+  .noi-dung-tieu-chi{
+    margin-top: 50px;
+    display: flex;
+  }
+
+  .anh-tieu-chi{
+    background-image: url(../img/anh-tieu-chi.png);
+    background-size: contain;
+    background-repeat: repeat;
+    width: 600px;
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+
+
+
+  .nd-tc{
+    margin: 20px;
+    border-radius: 20px;
+    border: 1px solid pink;
+    padding: 20px;
+    width: 65%;
+    background-color: #C7998C;
+  }
+  .child-4{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px #902204;
+  }
+
+  .child-5{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px #902204;
+
+  }
+  .child-6{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px #902204;
+
+  }
+
+  .child-7{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px #902204;
+
+  }
+
+  .child-8{
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 10px 20px #902204;
+
+  }
+
+</style>
+<body>
+<header>
+  <h1 class="h1-first">Miyazono Kaori</h1>
+  <nav>
+    <ul>
+      <li><a href="../home.html">Trang Chủ</a></li>
+      <li><a href="../pages/services.html">Dịch Vụ</a></li>
+      <li><a href="../pages/about.html">Giới Thiệu</a></li>
+      <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+      <li><a href="../pages/contact.html">Liên Hệ</a></li>
+      <li id="pay-ment"><a href="../pages/Payment.html" >Thanh Toán</a></li>
+      <li id="logout-btn"><a href="#" onclick="logout()">Đăng xuất</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<div class="khai-truong">
+  <h1 class="h1-last">✨ Khai Trương Tưng Bừng 🎉</h1>
+  <p class="p-first">Từ 1/3/2025 - 1/3/2026</p>
+</div>
+
+
+<section>
+  <h2>Ưu Đãi Khai Trương Thật Lớn Tại Miyazono Kaori</h2>
+
+
+  <article class="promotion">
+
+    <div class="anh-giam-gia">
+      <a href="../pages/booking.html" class="booking-now" target="_blank">Booking Now</a>
+      <i class="fa-regular fa-hand-point-left"></i>
+    </div>
+
+
+    <div class="noi-dung-giam-gia">
+
+      <div class="child-1">
+        <h3 class="h3-first">🎉Ưu đãi đặc biệt: Giảm 10% toàn bộ dịch vụ từ 1/3/2025 đến 1/3/2026!</h3>
+        <p>Chào đón năm <strong>2025</strong>, <strong>Kaori</strong> xin gửi đến quý khách hàng chương trình ưu đãi đặc biệt: Giảm ngay <strong>10%</strong> cho toàn bộ các dịch vụ chăm sóc da khi đặt lịch từ ngày <strong>1/3/2025</strong> đến hết ngày <strong>1/3/2026</strong>.</p>
+        <p>Đây là cơ hội tuyệt vời để bạn trải nghiệm những liệu trình chăm sóc da chuyên sâu, hiệu quả với mức giá vô cùng ưu đãi. Hãy để <strong>kaori</strong> đồng hành cùng bạn trên hành trình chinh phục làn da khỏe đẹp, rạng ngời.</p>
+      </div>
+
+
+      <div class="child-2">
+        <h3>Các dịch vụ áp dụng bao gồm:</h3>
+        <ul>
+          <li>Chăm sóc da mặt chuyên sâu</li>
+          <li>Điều trị mụn, thâm nám</li>
+          <li>Liệu trình trẻ hóa da</li>
+          <li>Và nhiều dịch vụ khác...</li>
+        </ul>
+
+        <p><strong>Đừng bỏ lỡ cơ hội vàng này!</strong> Hãy đặt lịch ngay hôm nay để tận hưởng ưu đãi đặc biệt từ <strong>Kaori</strong>.</p>
+      </div>
+
+      <div class="child-3">
+        <ul>
+          <h3>Đặt Lịch Ngay!</h3>
+          <li>Đặt lịch ngay hôm nay để nhận ưu đãi!<a href="../pages/booking.html" target="_blank"> tại đây </a></li>
+          <li>Truy cập <a href="https://www.facebook.com/MiyznKaori/" target="_blank">Facebook</a> của chúng tôi để biết thêm chi tiết.</li>
+          <li>📞Liên hệ hotline <strong>0912572421</strong> để được tư vấn và hỗ trợ.</li>
+        </ul>
+      </div>
+
+
+    </div>
+  </article>
+  <br>
+
+
+  <h2>Chúng Tôi Thực Hiện Dịch Vụ Trên 5 Tiêu Chí</h2>
+
+  <div class="noi-dung-tieu-chi">
+
+
+
+    <div class="nd-tc">
+
+      <article class="child-4">
+        <h3>1. Giá thành rẻ - Vẻ đẹp không cần "đắt đỏ"</h3>
+        <p>Chúng tôi hiểu rằng vẻ đẹp không phải lúc nào cũng đi kèm với giá cả đắt đỏ. Tại <strong>[Tên trang dịch vụ]</strong>, bạn sẽ tìm thấy những liệu trình chăm sóc da hiệu quả với mức giá vô cùng hợp lý, phù hợp với mọi đối tượng khách hàng.</p>
+        <p>Chúng tôi luôn nỗ lực tối ưu hóa chi phí để mang đến cho bạn những dịch vụ chất lượng cao với mức giá cạnh tranh nhất trên thị trường.</p>
+        <p>Các chương trình khuyến mãi, ưu đãi đặc biệt được cập nhật thường xuyên, giúp bạn tiết kiệm chi phí mà vẫn có được làn da như mong muốn.</p>
+      </article>
+
+      <article class="child-5">
+        <h3>2. Đẹp - Vẻ đẹp rạng ngời từ bên trong</h3>
+        <ul>
+          <li>Không chỉ tập trung vào việc cải thiện các vấn đề về da, chúng tôi còn hướng đến việc mang đến cho bạn vẻ đẹp tự nhiên, rạng ngời từ bên trong.</li>
+          <li>Các liệu trình chăm sóc da của chúng tôi được thiết kế chuyên biệt, giúp bạn sở hữu làn da khỏe mạnh, căng bóng, mịn màng, đồng thời tăng cường sự tự tin và quyến rũ.</li>
+          <li>Chúng tôi luôn cập nhật những xu hướng làm đẹp mới nhất, giúp bạn luôn tỏa sáng với vẻ ngoài hoàn hảo.</li>
+        </ul>
+      </article>
+
+      <article class="child-6">
+        <h3>3. Chất lượng hàng đầu - Sự khác biệt đến từ chuyên môn</h3>
+        <ul>
+          <li>Chất lượng dịch vụ luôn là ưu tiên hàng đầu của chúng tôi. Tại <strong>Kaori</strong>, bạn sẽ được trải nghiệm
+            những liệu trình chăm sóc da chuyên sâu, được thực hiện bởi đội ngũ chuyên viên giàu kinh nghiệm, tay nghề cao.</li>
+          <li>Chúng tôi sử dụng các công nghệ tiên tiến nhất, được kiểm nghiệm và chứng nhận an toàn bởi các tổ chức uy tín
+            trên thế giới.</li>
+          <li>Quy trình chăm sóc da được thực hiện theo tiêu chuẩn y khoa, đảm bảo an toàn và hiệu quả tối đa cho khách hàng.</li>
+        </ul>
+      </article>
+
+      <article class="child-7">
+        <h3>4. Đội ngũ bác sĩ uy tín - Chuyên môn tạo nên niềm tin</h3>
+        <ul>
+          <li>Đội ngũ bác sĩ da liễu của chúng tôi đều là những chuyên gia hàng đầu, có nhiều năm kinh nghiệm trong việc điều trị và chăm sóc các vấn đề về da.</li>
+          <li>Các bác sĩ của chúng tôi luôn tận tâm, chu đáo, lắng nghe và thấu hiểu những vấn đề về da của khách hàng, từ đó đưa ra những phác đồ điều trị phù hợp và hiệu quả nhất.</li>
+          <li>Chúng tôi cam kết mang đến cho bạn sự tư vấn chuyên nghiệp, tận tình và đáng tin cậy.</li>
+        </ul>
+      </article>
+
+      <article class="child-8">
+        <h3>5. Sản phẩm chất lượng - Hiệu quả đến từ sự lựa chọn hoàn hảo</h3>
+        <ul>
+          <li>Chúng tôi chỉ sử dụng các sản phẩm chăm sóc da chính hãng, có nguồn gốc rõ ràng, được kiểm nghiệm và chứng nhận an toàn bởi các tổ chức uy tín.</li>
+          <li>Các sản phẩm của chúng tôi được lựa chọn kỹ lưỡng, phù hợp với từng loại da và từng vấn đề về da khác nhau.</li>
+          <li>Chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng cao, giúp bạn đạt được hiệu quả chăm sóc da tối ưu.</li>
+        </ul>
+      </article>
+    </div>
+
+
+    <div class="anh-tieu-chi">
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  // Hàm xử lý đăng xuất
+  function logout() {
+    localStorage.removeItem("token");
+    alert("Bạn đã đăng xuất!");
+    window.location.href = "login.html";
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("token");
+    const logoutBtn = document.getElementById("logout-btn");
+    const pay = document.getElementById("pay-ment")
+    if (token) {
+      logoutBtn.style.display = "inline"; // hoặc "block" tùy layout
+    } else {
+      logoutBtn.style.display = "none";
+    }
+    const role = localStorage.getItem("role")
+    if(role === "ADMIN"){
+      pay.style.display ="inline"
+
+    }else {
+      pay.style.display ="none"
+    }
+  });
+</script>
+
+<br> <br> <br> <br> <br>
+<footer>
+  <p>&copy; Mọi thắc mắc hoặc khiếu nại của khách hàng tại Email: loclc8533@ut.edu.vn</p>
+</footer>
+
+
+</body>
+</html>

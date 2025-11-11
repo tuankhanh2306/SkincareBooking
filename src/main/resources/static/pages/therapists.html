@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tư vấn chăm sóc da - Chuyên Viên</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgb(245, 111, 133);
+            text-align: center;
+            padding: 20px;
+            opacity: 1;
+        }
+
+        .h1-first{
+            color: white;
+            font-size: 40px;
+        }
+
+        nav ul li::before {
+            content: none;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #e74c3c;
+            border-radius: 5px;
+        }
+
+        /* Main Section */
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        /* Expert Section */
+        section {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        /* Expert Articles */
+        article {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        article img {
+            width: 120px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        article p {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        article ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        article ul li {
+            font-size: 14px;
+            padding: 5px 0;
+            color: #555;
+            text-align: left;
+        }
+
+        /* Call to Action Button */
+        article p a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        article p a:hover {
+            background: #c0392b;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgb(245, 111, 133);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .booking-image {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            margin: 10px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .specialist-info {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .specialist-info img {
+            margin-right: 20px;
+        }
+
+        .specialist-details {
+            flex: 1;
+        }
+
+        .book-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .book-button:hover {
+            background-color: #c0392b;
+        }
+
+        .rating {
+            color: #f39c12;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            padding: 10px;
+            background-color: #fadbd8;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="h1-first">Miyazono Kaori</h1>
+    <nav>
+        <ul>
+            <li><a href="../home.html">Trang Chủ</a></li>
+            <li><a href="../pages/services.html">Dịch Vụ</a></li>
+            <li><a href="../pages/about.html">Giới Thiệu</a></li>
+            <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+            <li><a href="../pages/contact.html">Liên Hệ</a></li>
+            <li id="pay-ment"><a href="../pages/Payment.html">Thanh Toán</a></li>
+            <li id="logout-btn"><a href="#" onclick="logout()">Đăng xuất</a></li>
+        </ul>
+    </nav>
+</header>
+
+<img src="../img/hinh-dat-lich.png" alt="Ảnh đặt lịch" title="Ảnh đặt lịch" class="booking-image">
+
+<section>
+    <h2>Đội ngũ chuyên gia tư vấn hàng đầu</h2>
+    <div id="loading">Đang tải thông tin chuyên viên...</div>
+    <div id="specialists-container"></div>
+</section>
+
+<footer>
+    <p>&copy; Mọi thắc mắc hoặc khiếu nại của khách hàng tại Email: loclc8533@ut.edu.vn</p>
+</footer>
+
+<script>
+    // Kiểm tra đăng nhập và hiển thị nút đăng xuất
+    function checkAuth() {
+        const token = localStorage.getItem("token");
+        const logoutBtn = document.getElementById("logout-btn");
+        const paymentBtn = document.getElementById("pay-ment");
+
+        if (token) {
+            logoutBtn.style.display = "inline";
+        } else {
+            logoutBtn.style.display = "none";
+            // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+            window.location.href = "../login.html";
+        }
+
+        const role = localStorage.getItem("role");
+        if (role === "ADMIN") {
+            paymentBtn.style.display = "inline";
+        } else {
+            paymentBtn.style.display = "none";
+        }
+    }
+
+    // Đăng xuất
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("userId");
+        alert("Bạn đã đăng xuất!");
+        window.location.href = "../login.html";
+    }
+
+    // Lấy dữ liệu chuyên viên từ API
+    async function fetchSpecialists() {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                throw new Error("Bạn chưa đăng nhập");
+            }
+
+            const response = await fetch('http://localhost:8080/api/specialists', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Không thể tải dữ liệu chuyên viên');
+            }
+
+            const specialists = await response.json();
+            displaySpecialists(specialists);
+        } catch (error) {
+            document.getElementById('loading').style.display = 'none';
+            const container = document.getElementById('specialists-container');
+            container.innerHTML = `<div class="error-message">${error.message}</div>`;
+            console.error('Error:', error);
+        }
+    }
+
+    // Hiển thị danh sách chuyên viên
+    function displaySpecialists(specialists) {
+        const container = document.getElementById('specialists-container');
+        document.getElementById('loading').style.display = 'none';
+
+        if (specialists.length === 0) {
+            container.innerHTML = '<p>Không có chuyên viên nào.</p>';
+            return;
+        }
+
+        specialists.forEach(specialist => {
+            const specialistEl = document.createElement('article');
+
+            // Tạo ngẫu nhiên ảnh đại diện (trong thực tế, bạn sẽ sử dụng ảnh thật của chuyên viên)
+            const images = [
+                "../img/bac-si-trac-pham-png.jpg",
+                "../img/bac-si-han-vu-sinh-ca.png",
+                "../img/bac-si-dich-pham.png"
+            ];
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+
+            const stars = specialist.rating ? generateStars(specialist.rating) : 'Chưa có đánh giá';
+
+            specialistEl.innerHTML = `
+                <div class="specialist-info">
+                    <img src="${randomImage}" alt="${specialist.user.fullName}" title="${specialist.user.fullName}" width="120">
+                    <div class="specialist-details">
+                        <p><b>Bác Sĩ: </b>${specialist.user.fullName}</p>
+                        <p class="rating">${stars}</p>
+                        <ul>
+                            <li><strong>Chuyên môn:</strong> ${specialist.expertise}</li>
+                            <li><strong>Kinh nghiệm:</strong> ${specialist.experience} năm</li>
+                            <li><strong>Email:</strong> ${specialist.user.email}</li>
+                        </ul>
+                        <button class="book-button" onclick="bookAppointment(${specialist.id}, '${specialist.user.fullName}')">Đặt lịch hẹn</button>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(specialistEl);
+        });
+    }
+
+    // Tạo hiển thị sao đánh giá
+    function generateStars(rating) {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+        let starsHTML = '';
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '★';
+        }
+        if (hasHalfStar) {
+            starsHTML += '✫';
+        }
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '☆';
+        }
+
+        return `${starsHTML} (${rating.toFixed(1)})`;
+    }
+
+    // Chuyển đến trang đặt lịch với chuyên viên đã chọn
+    function bookAppointment(specialistId, specialistName) {
+        // Lưu thông tin chuyên viên vào localStorage để sử dụng trên trang đặt lịch
+        localStorage.setItem('selectedSpecialistId', specialistId);
+        localStorage.setItem('selectedSpecialistName', specialistName);
+
+        // Chuyển hướng đến trang đặt lịch
+        window.location.href = 'booking.html';
+    }
+
+    // Khởi chạy các hàm khi trang tải xong
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAuth();
+        fetchSpecialists();
+    });
+</script>
+</body>
+</html>

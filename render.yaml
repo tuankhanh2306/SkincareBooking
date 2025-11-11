@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: skincare-booking-system
+    runtime: java
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        value: ThisIsMySuperSecretKeyForJWT1234567890a
+      - key: SERVER_PORT
+        value: 8080

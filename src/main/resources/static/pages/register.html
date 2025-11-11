@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký Tài Khoản</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bungee+Tint&family=Dancing+Script:wght@400..700&family=Lobster&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    position: relative;
+    background-color: #f5f5f5;
+    font-family: 'Roboto', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/backgroundRegister.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  /* Header & Navigation */
+  header {
+    background-color: #e74c3c;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .h1-first {
+    color: white;
+    font-size: 40px;
+    font-family: "Lobster", sans-serif;
+    margin-bottom: 10px;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+
+  nav ul li {
+    margin: 0 5px;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  nav ul li a:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+  }
+
+  .form {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    position: relative;
+  }
+
+  .container {
+    padding: 30px;
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 15px;
+    color: #f5f5f5;
+  }
+
+  .h1 {
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: #e74c3c;
+  }
+
+  .h1 h1 {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  i.fa-right-to-bracket, i.fa-heart {
+    font-size: 24px;
+    color: #e74c3c;
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #e0e0e0;
+  }
+
+  input {
+    border-radius: 8px;
+    padding: 12px 15px;
+    width: 100%;
+    border: 1px solid #555;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s;
+    margin-bottom: 15px;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.3);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  input::placeholder {
+    color: #aaa;
+  }
+
+  .submit {
+    border-radius: 8px;
+    padding: 12px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #e74c3c;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .submit:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .form {
+      max-width: 90%;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin: 5px 0;
+    }
+  }
+</style>
+<header>
+  <h1 class="h1-first">Miyazono Kaori</h1>
+  <nav>
+    <ul>
+      <li><a href="../index.html">Trang Chủ</a></li>
+      <li><a href="../pages/services.html">Dịch Vụ</a></li>
+      <li><a href="../pages/about.html">Giới Thiệu</a></li>
+      <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+      <li><a href="../pages/contact.html">Liên Hệ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="form-container">
+  <form class="form" id="form">
+    <div class="container">
+      <div class="h1">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <h1>Register</h1>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+
+      <div class="form-group">
+        <label for="fullName">Họ Tên</label>
+        <input type="text" id="fullName" name="Họ_Và_Tên" placeholder="Nhập họ tên của bạn..." required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email" placeholder="Nhập email..." required>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone</label>
+        <input type="tel" id="phoneNumber" placeholder="Nhập số điện thoại..." required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu..." required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Nhập Lại Mật Khẩu</label>
+        <input type="password" id="confirmPassword" name="Nhập_lại_mật_khẩu" placeholder="Nhập lại mật khẩu..." required>
+      </div>
+
+      <button type="submit" class="submit">Đăng Ký</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: document.getElementById("fullName").value,
+          email: document.getElementById("email").value,
+          phoneNumber: document.getElementById("phoneNumber").value,
+          password: document.getElementById("password").value,
+          confirmPassword: document.getElementById("confirmPassword").value
+        })
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert("Đăng ký thành công!");
+        window.location.href = "login.html";
+      } else {
+        alert("Lỗi đăng ký: " + (result.message || "Không xác định được lỗi từ server"));
+      }
+    } catch (error) {
+      console.error("Lỗi khi gửi yêu cầu:", error);
+      alert("Đã xảy ra lỗi: " + error.message);
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung Tâm Chăm Sóc Da</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bungee+Tint&family=Dancing+Script:wght@400..700&family=Lobster&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+        position: relative;
+    }
+
+    :root {
+        --primary-color: #f56f85;
+        --primary-dark: #e74c3c;
+        --primary-light: #feeef1;
+        --accent-color: #ff6699;
+        --text-color: #333;
+        --light-text: #fff;
+        --border-radius: 10px;
+        --box-shadow: 2px 5px 15px rgba(251, 214, 220, 0.7);
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        background-color: #fcfcfc;
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+        background-color: var(--primary-color);
+        padding: 20px;
+        text-align: center;
+    }
+
+    .h1-first {
+        color: var(--light-text);
+        font-size: 40px;
+        font-family: "Lobster", sans-serif;
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    nav ul li::before {
+        content: none;
+    }
+
+    nav ul li {
+        display: inline;
+        margin: 0 10px;
+    }
+
+    nav ul li a {
+        color: var(--light-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        transition: var(--transition);
+        display: inline-block;
+    }
+
+    i {
+        vertical-align: middle;
+    }
+
+    nav ul li a:hover {
+        background-color: var(--primary-dark);
+        border-radius: 5px;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: url('../static/img/Brown and Beige Modern Skincare Product Presentation.png') no-repeat center/cover;
+        width: 100%;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--light-text);
+        padding: 20px;
+        background-attachment: fixed;
+        margin: 5px 0;
+        border-radius: var(--border-radius);
+    }
+
+    .first-web {
+        font-size: 70px;
+        color: black;
+        font-family: "Roboto", sans-serif;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+    }
+
+    /* Box Styles */
+    .h2 {
+        font-size: 50px;
+        font-family: "Dancing Script", cursive;
+        color: var(--accent-color);
+        margin-bottom: 15px;
+    }
+
+    .box-1 {
+        text-align: center;
+        width: 80%;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .box-1::after {
+        content: "";
+        display: block;
+        width: 50%;
+        margin: 20px auto;
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    .box-1 p {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    /* Section Boxes */
+    .section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 40px 0;
+    }
+
+    .section h2 {
+        color: var(--accent-color);
+        margin-bottom: 15px;
+        font-size: 28px;
+    }
+
+    .box-2, .box-4 {
+        border: 1px solid var(--primary-light);
+        width: 45%;
+        max-width: 500px;
+        margin: 0;
+        padding: 25px;
+        background-color: var(--primary-light);
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+    }
+
+    .box-2:hover, .box-4:hover {
+        background-color: #f8dde2;
+        transform: translateY(-5px);
+    }
+
+    .text-style {
+        font-family: "Noto Serif", serif;
+    }
+
+    .text-style ul {
+        padding-left: 20px;
+    }
+
+    .text-style ul li, .text-style p {
+        margin-bottom: 10px;
+    }
+
+    /* Services Section */
+    .last-h2 {
+        margin: 50px 0 30px;
+        text-align: center;
+        color: var(--accent-color);
+        font-size: 60px;
+        font-family: "Dancing Script", cursive;
+    }
+
+    .last-box {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        max-width: 1200px;
+        align-items: stretch; /* Đảm bảo các item có chiều cao bằng nhau */
+    }
+
+    .last-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 22%;
+        min-width: 200px;
+        padding: 25px;
+        border: 1px solid pink;
+        border-radius: 20px;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+        text-align: center;
+    }
+
+    .last-div:hover {
+        background: #F8DDE2;
+        transform: translateY(-5px);
+    }
+
+    .last-div b {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .last-div p {
+        margin-bottom: 20px;
+        min-height: 60px;
+    }
+
+    .dv {
+        border: 1px solid #eed5d9;
+        background-color: white;
+        border-radius: 10px;
+        text-align: center;
+        padding: 8px;
+        transition: var(--transition);
+    }
+
+    .dv a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .dv:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    /* Dividers */
+    .ngan-cach {
+        margin: 40px 0;
+        position: relative;
+    }
+
+    .ngan-cach::after {
+        content: "";
+        display: block;
+        width: 50%;
+        margin: 0 auto;
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    .ngan-cach-1 {
+        position: relative;
+        margin: 40px 0;
+    }
+
+    .ngan-cach-1::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, #f56f85, #ff6699, #f8dde2, #feeef1, #f56f85);
+    }
+
+    /* Booking Button */
+    .booking-btn {
+        display: inline-block;
+        margin-top: 20px;
+        background: var(--primary-dark);
+        color: white;
+        padding: 12px 25px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        transition: var(--transition);
+        font-weight: bold;
+    }
+
+    .booking-btn:hover {
+        background: #c0392b;
+        transform: scale(1.05);
+    }
+
+    /* Email Section */
+    .email {
+        border: 1px solid var(--primary-light);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 50px auto;
+        padding: 40px;
+        max-width: 1200px;
+        background-color: var(--primary-light);
+        border-radius: var(--border-radius);
+    }
+
+    .follow {
+        flex: 1;
+        min-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .follow h3 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+
+    .nhap-email {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .nhap-email form {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .nhap-email input[type="email"] {
+        flex: 1;
+        min-width: 250px;
+        height: 45px;
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .nhap-email button {
+        width: 120px;
+        height: 45px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .nhap-email button:hover {
+        background-color: var(--primary-dark);
+    }
+
+    /* Social Media Section */
+    .first-box-1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 40px auto;
+        max-width: 1200px;
+    }
+
+    .first-box-1 > div {
+        flex: 1;
+        min-width: 300px;
+        margin-bottom: 30px;
+    }
+
+    .first-box-1 h2 {
+        color: var(--accent-color);
+        font-size: 28px;
+        margin-bottom: 20px;
+        font-family: "Dancing Script", cursive;
+    }
+
+    .first-box-1 a {
+        font-size: 30px;
+        margin: 0 10px 0 0;
+        transition: var(--transition);
+    }
+
+    .first-box-1 a:hover {
+        transform: scale(1.2);
+    }
+
+    .fb { color: #1877f2; }
+    .mess { color: #0084ff; }
+    .ytb { color: #ff0000; }
+    .tiktok { color: #000000; }
+    .x { color: #1da1f2; }
+
+    .dat-lich p {
+        margin-bottom: 10px;
+    }
+
+    .dat-lich a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .dat-lich a:hover {
+        text-decoration: underline;
+    }
+
+    /* Doctors Section */
+    .h3-doctor {
+        text-align: center;
+        margin: 50px 0 30px;
+        color: var(--accent-color);
+        font-size: 60px;
+        font-family: "Dancing Script", cursive;
+    }
+
+    .doctor {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    .dt-tracpham, .dt-dichpham, .dt-hanvusinhca {
+        width: 30%;
+        min-width: 250px;
+        background: #f9f9f9;
+        padding: 25px;
+        border-radius: 30px;
+        text-align: center;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+    }
+
+    .dt-tracpham:hover, .dt-dichpham:hover, .dt-hanvusinhca:hover {
+        background-color: #f8dde2;
+        transform: translateY(-5px);
+    }
+
+    .dt-tracpham img, .dt-dichpham img, .dt-hanvusinhca img {
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 3px solid var(--primary-light);
+    }
+
+    .dt-tracpham p, .dt-dichpham p, .dt-hanvusinhca p {
+        margin-bottom: 15px;
+    }
+
+    .book-1, .book-2, .book-3 {
+        display: inline-block;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: white;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .book-1:hover, .book-2:hover, .book-3:hover {
+        background: var(--primary-dark);
+        transform: scale(1.05);
+    }
+
+    /* FAQ Section */
+    .coment-thuonggap {
+        width: 90%;
+        max-width: 1200px;
+        margin: 50px auto;
+        background: var(--primary-light);
+        padding: 30px;
+        border-radius: var(--border-radius);
+    }
+
+    .coment-thuonggap h3 {
+        text-align: center;
+        color: var(--accent-color);
+        font-size: 60px;
+        margin-bottom: 30px;
+        font-family: "Dancing Script", cursive;
+    }
+
+    details {
+        background: white;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 8px;
+        transition: var(--transition);
+        cursor: pointer;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #eee;
+    }
+
+    details:hover {
+        background: #f5f5f5;
+    }
+
+    summary {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        padding: 5px 0;
+    }
+
+    details p {
+        margin-top: 15px;
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.5;
+        padding: 15px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Chat Icon */
+    .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary-color);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 24px;
+        z-index: 1000;
+        animation: shakeRotate 0.5s infinite;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Định nghĩa keyframes với sóng tròn bóng xám */
+    @keyframes shakeRotate {
+        0% {
+            transform: rotate(0deg);
+            box-shadow: 0 0 5px rgba(128, 128, 128, 0.8), /* Lớp bóng nhỏ, đậm */
+            0 0 10px rgba(128, 128, 128, 0.5); /* Lớp bóng lớn hơn, nhạt hơn */
+        }
+        25% {
+            transform: rotate(10deg);
+            box-shadow: 0 0 10px rgba(128, 128, 128, 0.8), /* Sóng lan ra */
+            0 0 20px rgba(128, 128, 128, 0.4);
+        }
+        50% {
+            transform: rotate(-10deg);
+            box-shadow: 0 0 15px rgba(128, 128, 128, 0.8), /* Sóng lớn hơn */
+            0 0 30px rgba(128, 128, 128, 0.3);
+        }
+        75% {
+            transform: rotate(10deg);
+            box-shadow: 0 0 10px rgba(128, 128, 128, 0.8), /* Sóng thu lại */
+            0 0 20px rgba(128, 128, 128, 0.4);
+        }
+        100% {
+            transform: rotate(0deg);
+            box-shadow: 0 0 5px rgba(128, 128, 128, 0.8), /* Trở về ban đầu */
+            0 0 10px rgba(128, 128, 128, 0.5);
+        }
+    }
+
+    .chat-container {
+        width: 400px;
+        height: 400px;
+        border: 1px solid #ccc;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .chat-container.show {
+        display: flex;
+        opacity: 1;
+    }
+
+    .chat-header {
+        background: linear-gradient(to right, rgb(255, 0, 43), rgb(240, 35, 69),rgb(255, 60, 93), rgb(239, 166, 178));
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chat-header h3 {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .chat-box {
+        height: calc(100% - 90px);
+        overflow-y: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-kaori, .message-you {
+        margin: 5px 0;
+        padding: 8px 12px;
+        border-radius: 15px;
+        max-width: 70%;
+        word-wrap: break-word;
+    }
+
+    .message-kaori {
+        background-color: rgb(196, 95, 112); /* Màu xanh đậm cho Kaori */
+        color: white;
+        align-self: flex-start; /* Căn trái */
+    }
+
+    .message-you {
+        background-color: rgb(195, 43, 69); /* Màu xanh nhạt cho You */
+        color: white;
+        align-self: flex-end; /* Căn phải */
+    }
+
+    .input-area {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .input-area input[type="text"] {
+        flex-grow: 1;
+        padding: 5px;
+        margin: 0 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .input-area input[type="file"] {
+        margin-right: 5px;
+        width: 100px;
+    }
+
+    .input-area button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .input-area button:hover {
+        background-color: #c0392b;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        section, .coment-thuonggap {
+            width: 90%;
+            padding: 10px;
+        }
+        .chat-container {
+            width: 90%;
+            height: 300px;
+            right: 5px;
+            bottom: 60px;
+        }
+        .chat-icon {
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+        .input-area input[type="file"] {
+            width: 80px;
+        }
+        .facebook-icon {
+            font-size: 40px;
+            right: 10px;
+            bottom: 60px;
+        }
+    }
+
+    nav {
+        position: relative;
+    }
+
+    .first-li{
+        position: absolute;
+        right: 15%;
+        bottom: 0px;
+        font-size: 30px;
+    }
+</style>
+<body>
+<header>
+    <nav>
+        <h1 class="h1-first">Miyazono Kaori</h1>
+        <ul>
+            <li><a href="../home/index.html">Trang Chủ</a></li>
+            <li><a href="../static/pages/services.html">Dịch Vụ</a></li>
+            <li><a href="../static/pages/about.html">Giới Thiệu</a></li>
+            <li><a href="../static/pages/therapists.html">Chuyên Viên</a></li>
+            <li><a href="../static/pages/contact.html">Liên Hệ</a></li>
+            <li id="pay-ment"><a href="../static/pages/Payment.html">Thanh Toán</a></li>
+            <li id="logout-btn" ><a href="" onclick="logout()">Đăng xuất</a></li>
+
+        </ul>
+    </nav>
+</header>
+
+<!-- Phần Giới Thiệu -->
+<section id="home" class="hero">
+    <h1 class="first-web">Miyazono Kaori Skin Care</h1>
+    <a href="../static/pages/booking.html" class="booking-btn">Đặt lịch tại đây</a>
+    <a href="../static/pages/Quiz.html" class="booking-btn">Làm bài test nho nhỏ</a>
+</section>
+
+
+<div class="first-box box-1">
+    <h2 class="h2">Đừng để thói quen chăm sóc da của bạn <br> phụ thuộc vào may rủi!</h2>
+    <p>💖 Làn da đẹp là chìa khóa của sự tự tin – Hãy để chúng tôi giúp bạn sở hữu làn da khỏe mạnh, mịn màng và tràn đầy sức sống!</p>
+    <p>Tại Kaori, chúng tôi cung cấp các liệu trình chăm sóc da chuyên nghiệp với sự kết hợp giữa công nghệ hiện đại và các phương pháp làm đẹp tự nhiên. </p>
+    <p>Với đội ngũ chuyên gia giàu kinh nghiệm, chúng tôi cam kết mang đến cho bạn những trải nghiệm tốt nhất để làn da được cải thiện toàn diện.</p>
+</div>
+
+
+
+<section class="section">
+    <article class="first-box box-2">
+        <h2>Vì sao nên chọn Kaori?</h2>
+        <div class="text-style">
+            <ul>
+                <li>Công nghệ tiên tiến – Ứng dụng các phương pháp hiện đại như laser, vi kim, phi kim, điện di,...</li>
+                <li>Đội ngũ chuyên gia – Được đào tạo bài bản, nhiều năm kinh nghiệm trong lĩnh vực da liễu. </li>
+                <li>Liệu trình cá nhân hóa – Được tư vấn kỹ càng, thiết kế riêng theo tình trạng da của từng khách hàng.</li>
+                <li>Sản phẩm cao cấp – Sử dụng mỹ phẩm chính hãng, an toàn và phù hợp với mọi loại da. </li>
+                <li>Không gian thư giãn – Thiết kế sang trọng, thoải mái, mang đến cảm giác dễ chịu khi làm đẹp.</li>
+            </ul>
+        </div>
+    </article>
+
+
+    <article class="first-box box-4">
+        <h2>Khách hàng nói gì về chúng tôi?</h2>
+        <div class="text-style">
+            <ul>
+                <p>💬"Sau một thời gian điều trị mụn tại đây, làn da mình đã cải thiện rõ rệt. Chuyên viên tư vấn rất tận tâm, liệu trình hiệu quả. Rất đáng để trải nghiệm!" – Thu Hà, 25 tuổi</p>
+                <p>💬"Mình đã thử liệu trình trẻ hóa da và thực sự bất ngờ với kết quả. Da căng bóng, sáng mịn hơn rất nhiều. Không gian spa cũng rất thư giãn!" – Lan Anh, 30 tuổi</p>
+                <p>💬"Dịch vụ tốt, nhân viên thân thiện, tư vấn rất chi tiết. Mình sẽ tiếp tục sử dụng các gói chăm sóc da định kỳ tại đây." – Ngọc Hân, 27 tuổi</p>
+            </ul>
+        </div>
+        📸 Xem thêm hình ảnh trước & sau khi điều trị [tại đây]
+    </article>
+</section>
+
+
+<div class="ngan-cach"> </div>
+
+
+
+
+<h2 class="last-h2">Dịch vụ nổi bật</h2>
+
+<div class="last-box box-3">
+
+    <div class="last-div div-1">
+        <b>TRỊ MỤN CHUYÊN SÂU</b>
+        <p>Giảm sưng viêm, ngăn ngừa tái phát, se khít lỗ chân lông.</p>
+        <br>
+        <div class="dv">
+            <a href="../static/pages/services.html">Tìm hiểu thêm.</a>
+        </div>
+    </div>
+
+
+
+    <div class="last-div">
+        <b>LIỆU TRÌNH TRẺ HÓA DA</b>
+        <p>Làm căng bóng, mờ thâm nám, cải thiện độ đàn hồi cho da.</p>
+
+        <br>
+        <div class="dv">
+            <a href="../static/pages/services.html" >Tìm hiểu thêm.</a>
+        </div>
+    </div>
+
+
+
+    <div class="last-div">
+        <b>THẢI ĐỘC VÀ CẤP ẨM CHO DA </b>
+        <p>Phục hồi da tổn thương, bổ sung dưỡng chất giúp da căng mướt.</p>
+        <br>
+
+        <div class="dv">
+            <a href="../static/pages/services.html">Tìm hiểu thêm.</a>
+        </div>
+    </div>
+
+
+
+    <div class="last-div">
+        <b>ĐIỀU TRỊ NÁM – TÀN NHANG</b>
+        <p>Loại bỏ hắc sắc tố, cải thiện làn da không đều màu.</p>
+
+        <br>
+        <div class="dv">
+            <a href="../static/pages/services.html">Tìm hiểu thêm.</a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="ngan-cach"></div>
+
+
+
+<h3  class="h3-doctor">Gặp gở các chuyên gia</h3>
+<div class="doctor">
+    <div class="dt-tracpham">
+        <img src="../static/img/bac-si-trac-pham-png.jpg" alt="Bác sĩ Trác Phàm" title="Bác sĩ Trác Phàm" width="150">
+        <p style="color: rgb(255, 0, 43);"><b>Bác Sĩ: </b>Trác Phàm</p>
+        <p>Với hơn 15 năm kinh nghiệm trong lĩnh vực da liễu thẩm mỹ.</p>
+        <a href="#" class="book-1">ĐẶT CHỖ VỚI TRÁC PHÀM</a>
+    </div>
+
+    <div class="dt-dichpham">
+        <img src="../static/img/bac-si-dich-pham.png" alt="Bác sĩ Dịch Phàm" title="Bác sĩ Dịch Phàm" width="150">
+        <p style="color: rgb(255, 0, 43);"><b>Bác Sĩ: </b>Dịch Phàm</p>
+        <p>Trên 20 năm kinh nghiệm trong lĩnh vực da liễu.</p>
+        <a href="#" class="book-2">ĐẶT CHỖ VỚI DỊCH PHÀM</a>
+    </div>
+
+    <div class="dt-hanvusinhca">
+        <img src="../static/img/bac-si-han-vu-sinh-ca.png" alt="Bác Sĩ Hàn Vũ Sinh Ca" title="Bác sĩ Hàn Vũ Sinh Ca" width="150">
+        <p style="color: rgb(255, 0, 43);" ><b>Bác Sĩ: </b>Hàn Vũ Sinh Ca</p>
+        <p>Với hơn 15 năm kinh nghiệm trong lĩnh vực da liễu thẩm mỹ. </p>
+        <a href="#" class="book-3">ĐẶT CHỖ VỚI SINH CA</a>
+    </div>
+</div>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<section class="coment-thuonggap">
+    <article>
+        <h3>Những Câu Hỏi Thường Gặp?</h3>
+        <details>
+            <summary>Tôi có cần đặt lịch hẹn trước không?</summary>
+            <p>Để đảm bảo bạn nhận được dịch vụ tốt nhất, chúng tôi khuyến khích đặt lịch hẹn trước. Tuy nhiên,
+                nếu bạn đến trực tiếp, chúng tôi sẽ cố gắng sắp xếp phù hợp với lịch trình của bạn.</p>
+        </details>
+        <details>
+            <summary>Bao lâu thì tôi nên đi chăm sóc da một lần? </summary>
+            <p>Tùy thuộc vào tình trạng da của bạn, nhưng thông thường, bạn nên chăm sóc da chuyên sâu từ 2-4 tuần/lần
+                để đạt hiệu quả tốt nhất. </p>
+        </details>
+        <details>
+            <summary>Tôi có thể chăm sóc da khi đang bị mụn không?</summary>
+            <p>Có! Việc chăm sóc da đúng cách sẽ giúp giảm sưng viêm, làm sạch lỗ chân lông và hỗ trợ quá
+                trình điều trị mụn hiệu quả hơn.</p>
+        </details>
+        <details>
+            <summary>Tôi có cần kiêng gì sau khi chăm sóc da không?</summary>
+            <p>Sau khi chăm sóc da, bạn nên tránh ánh nắng trực tiếp, không sử dụng mỹ phẩm có tính tẩy mạnh
+                và uống nhiều nước để da phục hồi tốt hơn.</p>
+        </details>
+        <details>
+            <summary>Dịch vụ nào phù hợp với da nhạy cảm?</summary>
+            <p>Nếu bạn có làn da nhạy cảm, chúng tôi sẽ tư vấn các liệu trình nhẹ nhàng như dưỡng ẩm, phục hồi da và sử dụng các sản phẩm không chứa hương liệu, cồn.</p>
+        </details>
+        <details>
+            <summary>Tôi có thể trang điểm sau khi làm liệu trình không?</summary>
+            <p>Tốt nhất là không nên trang điểm ngay sau khi chăm sóc da để da có thời gian hấp thụ dưỡng chất và phục hồi. Nếu cần trang điểm, hãy sử dụng các sản phẩm dịu nhẹ.</p>
+        </details>
+    </article>
+</section>
+
+
+<br> <br> <br> <br> <br>
+
+<div class="ngan-cach-1"></div>
+
+<div class="email">
+
+    <div class="follow">
+        <h3>Đăng ký & Theo dõi</h3>
+        <p>Tìm hiểu về sản phẩm mới, chương trình khuyến mãi và tin tức. </p>
+    </div>
+
+    <div class="nhap-email">
+        <form action="https://www.w3schools.com/action_page.php" target="_blank" required>
+            <input type="email" id="email" name="email" placeholder="Nhập Email của bạn tại đây:">
+            <button type="submit">Đăng Ký</button>
+        </form>
+    </div>
+</div>
+
+<div class="first-box-1 box-5">
+    <div>
+        <h2>Hãy giao lưu cùng nhau nhé!</h2>
+        <a href="https://www.facebook.com/MiyznKaori/" target="_blank" class="fb">
+            <i class="fa-brands fa-facebook"></i>
+        </a>
+
+        <a href="https://www.facebook.com/MiyznKaori/" target="_blank" class="mess">
+            <i class="fa-brands fa-facebook-messenger"></i>
+        </a>
+
+        <a href="https://www.youtube.com/" target="_blank" class="ytb">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+
+        <a href="https://www.tiktok.com/" target="_blank" class="tiktok">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+
+        <a href="#" class="x" target="#">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+    </div>
+
+
+    <div class="dat-lich">
+        <h2>Đặt lịch ngay hôm nay!</h2>
+        <ul>
+            <p>💌 Nhận tư vấn miễn phí & ưu đãi hấp dẫn khi đặt lịch ngay hôm nay!</p>
+            <p>📍 Địa chỉ: Số 2 Võ Oanh, Phường 25, Quận Bình Thạnh</p>
+            <p>📞 Hotline: 0912572421</p>
+            <p>📧 Email: loclc8533@ut.edu.vn</p>
+            <p>🌐 Website: KaoriMiyazono.com.vn</p>
+            <p>📅 Giờ làm việc: 08:00 – 20:00 (Tất cả các ngày trong tuần)</p>
+            <p>🔹 Follow chúng tôi trên Facebook [<a href="https://www.facebook.com/MiyznKaori/" target="_blank">Tại đây</a>] để cập nhật những chương trình ưu đãi mới nhất!</p>
+        </ul>
+    </div>
+</div>
+
+<!-- Icon nhắn tin -->
+<div class="chat-icon" onclick="toggleChat()">
+    <i class="fa-brands fa-facebook-messenger"></i>
+</div>
+
+<!-- Box chat -->
+<div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+        <h3>Tư Vấn Dịch Vụ</h3>
+        <button class="close-btn" onclick="toggleChat()"></button>
+    </div>
+    <div class="chat-box" id="chatBox">
+        <div class="message-kaori"><b>Kaori: </b>Chào mừng bạn đến với kaori! <br>Bạn có thể để lại tin nhắn bất cứ lúc nào nhé. Mình sẽ phản hồi sớm nhất có thể!</div>
+    </div>
+    <div class="input-area">
+        <input type="file" id="fileInput" onchange="uploadFile()">
+        <input type="text" id="messageInput" placeholder="Nhập tin nhắn...">
+        <button onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
+
+<footer>
+    <p>© Mọi thắc mắc hoặc khiếu nại của khách hàng tại Email: <a href="mailto:loclc8533@ut.edu.vn">loclc8533@ut.edu.vn</a></p>
+</footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("token");
+        const logoutBtn = document.getElementById("logout-btn");
+
+        if (token) {
+            logoutBtn.style.display = "inline"; // hoặc "block" tùy layout
+        } else {
+            logoutBtn.style.display = "none";
+        }
+        const role = localStorage.getItem("role")
+        const pay = document.getElementById("pay-ment")
+        if(role === "ADMIN"){
+            pay.style.display ="inline"
+
+        }else {
+            pay.style.display ="none"
+        }
+    });
+
+    function logout() {
+        localStorage.removeItem("token");
+        alert("Bạn đã đăng xuất!");
+        window.location.href = "/pages/login.html"; // nhớ dùng đúng đường dẫn đến trang đăng nhập
+    }
+</script>
+
+</body>
+</html>

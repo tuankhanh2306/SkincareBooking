@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Vụ Chăm Sóc Da - Tìm Liệu Trình Phù Hợp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 10px;
+            background-color: #3498db;
+            border-radius: 5px;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: right;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .quiz-step {
+            display: none;
+        }
+
+        .active-step {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .quiz-question {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .options-container {
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 12px 0;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background-color: #e9ecef;
+        }
+
+        .quiz-option.selected {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        .quiz-option input {
+            margin-right: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        #prev-btn {
+            background-color: #95a5a6;
+        }
+
+        #prev-btn:hover {
+            background-color: #7f8c8d;
+        }
+
+        #results-container {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .service-name {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .service-description {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .match-percentage {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        #booking-now {
+            display: block;
+            width: 200px;
+            margin: 30px auto 10px;
+            padding: 12px 20px;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        #booking-now:hover {
+            background-color: #1a252f;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Tìm Dịch Vụ Chăm Sóc Da Phù Hợp</h1>
+        <p class="subtitle">Trả lời 5 câu hỏi để nhận gợi ý dịch vụ phù hợp nhất với làn da của bạn</p>
+    </header>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress" id="progress-bar"></div>
+        </div>
+        <div class="progress-text" id="progress-text">0%</div>
+    </div>
+
+    <div id="quiz-container">
+        <!-- Question 1 -->
+        <div class="quiz-step active-step" id="step-1">
+            <div class="quiz-question">1. Loại da của bạn là gì?</div>
+            <div class="options-container">
+                <label class="quiz-option">
+                    <input type="radio" name="skin-type" value="oily" data-points="Da dầu">
+                    Da dầu (Da nhờn, bóng dầu sau vài giờ)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="skin-type" value="dry" data-points="Da khô">
+                    Da khô (Da thường khô, căng, thiếu độ ẩm)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="skin-type" value="combination" data-points="Da hỗn hợp">
+                    Da hỗn hợp (Vùng T dầu, vùng má khô)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="skin-type" value="sensitive" data-points="Da nhạy cảm">
+                    Da nhạy cảm (Dễ bị kích ứng, đỏ)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="skin-type" value="normal" data-points="Da thường">
+                    Da thường (Không quá dầu hay quá khô)
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="quiz-step" id="step-2">
+            <div class="quiz-question">2. Bạn đang gặp vấn đề gì với làn da?</div>
+            <div class="options-container">
+                <label class="quiz-option">
+                    <input type="checkbox" name="skin-concerns" value="acne" data-services="Trị mụn">
+                    Da mụn (mụn nhọt, mụn đầu đen)
+                </label>
+                <label class="quiz-option">
+                    <input type="checkbox" name="skin-concerns" value="pigmentation" data-services="Làm trắng da,Liệu trình Vitamin C">
+                    Da xỉn màu, không đều màu, tàn nhang
+                </label>
+                <label class="quiz-option">
+                    <input type="checkbox" name="skin-concerns" value="dryness" data-services="Liệu trình cấp ẩm">
+                    Da khô, thiếu ẩm, bong tróc
+                </label>
+                <label class="quiz-option">
+                    <input type="checkbox" name="skin-concerns" value="aging" data-services="Tái tạo da bằng laser,Se khít lỗ chân lông">
+                    Dấu hiệu lão hóa (nếp nhăn, chảy xệ)
+                </label>
+                <label class="quiz-option">
+                    <input type="checkbox" name="skin-concerns" value="pores" data-services="Se khít lỗ chân lông,Rửa mặt chuyên sâu">
+                    Lỗ chân lông to, da sần sùi
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="quiz-step" id="step-3">
+            <div class="quiz-question">3. Bạn đã từng trải nghiệm dịch vụ spa chăm sóc da chưa?</div>
+            <div class="options-container">
+                <label class="quiz-option">
+                    <input type="radio" name="experience" value="never">
+                    Chưa từng (đây là lần đầu tiên)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="experience" value="few-times">
+                    Ít khi (1-2 lần/năm)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="experience" value="regular">
+                    Thường xuyên (3-6 lần/năm)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="experience" value="frequent">
+                    Rất thường xuyên (hàng tháng)
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="quiz-step" id="step-4">
+            <div class="quiz-question">4. Mục tiêu chính bạn muốn đạt được là gì?</div>
+            <div class="options-container">
+                <label class="quiz-option">
+                    <input type="radio" name="goal" value="clean" data-services="Làm sạch da cơ bản,Rửa mặt chuyên sâu">
+                    Làm sạch sâu, loại bỏ bụi bẩn và tế bào chết
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="goal" value="brighten" data-services="Làm trắng da,Liệu trình Vitamin C">
+                    Làm sáng da, cải thiện tông màu da
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="goal" value="repair" data-services="Tái tạo da bằng laser,Se khít lỗ chân lông">
+                    Trẻ hóa da, tái tạo tế bào
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="goal" value="relax" data-services="Massage mặt thư giãn">
+                    Thư giãn, giảm stress và làm dịu da
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="goal" value="hydrate" data-services="Liệu trình cấp ẩm">
+                    Cấp ẩm, phục hồi hàng rào bảo vệ da
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="quiz-step" id="step-5">
+            <div class="quiz-question">5. Bạn muốn đầu tư thời gian như thế nào cho việc chăm sóc da?</div>
+            <div class="options-container">
+                <label class="quiz-option">
+                    <input type="radio" name="time" value="quick">
+                    Nhanh chóng (30-45 phút)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="time" value="standard">
+                    Tiêu chuẩn (60-90 phút)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="time" value="extended">
+                    Chuyên sâu (90-120 phút)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="time" value="comprehensive">
+                    Liệu trình toàn diện (nhiều buổi điều trị)
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prev-btn" disabled>Quay Lại</button>
+        <button id="next-btn">Tiếp Theo</button>
+    </div>
+
+    <div id="results-container">
+        <div class="results-header">
+            <h2>Dịch Vụ Phù Hợp Với Bạn</h2>
+            <p>Dựa trên thông tin bạn cung cấp, chúng tôi gợi ý những dịch vụ sau:</p>
+        </div>
+        <div id="recommended-services">
+            <!-- Services will be added here -->
+        </div>
+        <button id="booking-now">Đặt Lịch Ngay</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Services database
+        const services = [
+            {
+                id: 10,
+                name: "Trị mụn",
+                description: "Giúp giảm mụn và cải thiện làn da",
+                forSkinTypes: ["Da dầu", "Da hỗn hợp"],
+                forConcerns: ["acne"]
+            },
+            {
+                id: 11,
+                name: "Làm trắng da",
+                description: "Làm sáng da và giảm thâm nám",
+                forSkinTypes: ["Da thường", "Da khô", "Da hỗn hợp"],
+                forConcerns: ["pigmentation"]
+            },
+            {
+                id: 12,
+                name: "Rửa mặt chuyên sâu",
+                description: "Làm sạch sâu và cấp ẩm",
+                forSkinTypes: ["Da dầu", "Da hỗn hợp", "Da thường"],
+                forConcerns: ["pores"]
+            },
+            {
+                id: 13,
+                name: "Chăm sóc da nhạy cảm",
+                description: "Dành riêng cho làn da dễ kích ứng",
+                forSkinTypes: ["Da nhạy cảm"],
+                forConcerns: []
+            },
+            {
+                id: 14,
+                name: "Liệu trình cấp ẩm",
+                description: "Cung cấp độ ẩm sâu cho da khô",
+                forSkinTypes: ["Da khô", "Da thường", "Da hỗn hợp"],
+                forConcerns: ["dryness"]
+            },
+            {
+                id: 15,
+                name: "Liệu trình Vitamin C",
+                description: "Tăng cường độ sáng và giảm thâm",
+                forSkinTypes: ["Da thường", "Da khô", "Da hỗn hợp", "Da dầu"],
+                forConcerns: ["pigmentation"]
+            },
+            {
+                id: 16,
+                name: "Se khít lỗ chân lông",
+                description: "Thu nhỏ lỗ chân lông và làm mịn da",
+                forSkinTypes: ["Da dầu", "Da hỗn hợp"],
+                forConcerns: ["pores", "aging"]
+            },
+            {
+                id: 17,
+                name: "Tái tạo da bằng laser",
+                description: "Kích thích sản sinh collagen và tái tạo tế bào da",
+                forSkinTypes: ["Da thường", "Da dầu", "Da hỗn hợp", "Da khô"],
+                forConcerns: ["aging"]
+            },
+            {
+                id: 18,
+                name: "Massage mặt thư giãn",
+                description: "Giúp lưu thông máu, giảm stress và thư giãn cơ mặt",
+                forSkinTypes: ["Da thường", "Da khô", "Da nhạy cảm", "Da hỗn hợp", "Da dầu"],
+                forConcerns: []
+            },
+            {
+                id: 19,
+                name: "Làm sạch da cơ bản",
+                description: "Lấy mụn, làm sạch sâu, cân bằng độ ẩm",
+                forSkinTypes: ["Da thường", "Da dầu", "Da hỗn hợp"],
+                forConcerns: ["pores", "acne"]
+            }
+        ];
+
+        // Quiz navigation
+        let currentStep = 1;
+        const totalSteps = 5;
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        // Update progress
+        function updateProgress() {
+            const progressPercentage = ((currentStep - 1) / totalSteps) * 100;
+            progressBar.style.width = progressPercentage + '%';
+            progressText.textContent = Math.round(progressPercentage) + '%';
+        }
+
+        // Navigate to next step
+        function goToNextStep() {
+            // Validate current step
+            if (currentStep === 1 && !document.querySelector('input[name="skin-type"]:checked')) {
+                alert('Vui lòng chọn loại da của bạn');
+                return;
+            }
+
+            if (currentStep === 2 && !document.querySelector('input[name="skin-concerns"]:checked')) {
+                alert('Vui lòng chọn ít nhất một vấn đề da');
+                return;
+            }
+
+            if (currentStep === 3 && !document.querySelector('input[name="experience"]:checked')) {
+                alert('Vui lòng chọn mức độ trải nghiệm của bạn');
+                return;
+            }
+
+            if (currentStep === 4 && !document.querySelector('input[name="goal"]:checked')) {
+                alert('Vui lòng chọn mục tiêu của bạn');
+                return;
+            }
+
+            if (currentStep === 5 && !document.querySelector('input[name="time"]:checked')) {
+                alert('Vui lòng chọn thời gian bạn muốn đầu tư');
+                return;
+            }
+
+            // Hide current step
+            document.getElementById(`step-${currentStep}`).classList.remove('active-step');
+
+            // Move to next step or show results
+            if (currentStep < totalSteps) {
+                currentStep++;
+                document.getElementById(`step-${currentStep}`).classList.add('active-step');
+                prevBtn.disabled = false;
+
+                if (currentStep === totalSteps) {
+                    nextBtn.textContent = 'Xem Kết Quả';
+                }
+            } else {
+                // Show results
+                showResults();
+                document.getElementById('quiz-container').style.display = 'none';
+                document.querySelector('.navigation').style.display = 'none';
+                document.getElementById('results-container').style.display = 'block';
+            }
+
+            updateProgress();
+        }
+
+        // Navigate to previous step
+        function goToPrevStep() {
+            // Hide current step
+            document.getElementById(`step-${currentStep}`).classList.remove('active-step');
+
+            // Move to previous step
+            currentStep--;
+            document.getElementById(`step-${currentStep}`).classList.add('active-step');
+
+            // Update button states
+            if (currentStep === 1) {
+                prevBtn.disabled = true;
+            }
+
+            if (currentStep < totalSteps) {
+                nextBtn.textContent = 'Tiếp Theo';
+            }
+
+            updateProgress();
+        }
+
+        // Calculate service recommendations
+        function calculateRecommendations() {
+            const userProfile = {
+                skinType: document.querySelector('input[name="skin-type"]:checked')?.getAttribute('data-points'),
+                concerns: Array.from(document.querySelectorAll('input[name="skin-concerns"]:checked')).map(input => input.value),
+                experience: document.querySelector('input[name="experience"]:checked')?.value,
+                goal: document.querySelector('input[name="goal"]:checked')?.value,
+                goalServices: document.querySelector('input[name="goal"]:checked')?.getAttribute('data-services')?.split(',') || [],
+                time: document.querySelector('input[name="time"]:checked')?.value
+            };
+
+            // Get services from skin concerns
+            const concernServices = Array.from(document.querySelectorAll('input[name="skin-concerns"]:checked'))
+                .map(input => input.getAttribute('data-services')?.split(',') || [])
+                .flat();
+
+            // Combine all service names
+            const allRecommendedServices = [...new Set([...userProfile.goalServices, ...concernServices])];
+
+            // Match services to the user profile
+            return services
+                .filter(service => {
+                    // Match by name in recommendations
+                    const isRecommended = allRecommendedServices.includes(service.name);
+
+                    // Match by skin type
+                    const matchesSkinType = service.forSkinTypes.includes(userProfile.skinType);
+
+                    // Match by concerns
+                    const matchesConcerns = service.forConcerns.some(concern =>
+                        userProfile.concerns.includes(concern)
+                    ) || service.forConcerns.length === 0;
+
+                    return isRecommended || (matchesSkinType && matchesConcerns);
+                })
+                .map(service => {
+                    // Calculate match percentage
+                    let score = 0;
+
+                    // Direct recommendation score
+                    if (allRecommendedServices.includes(service.name)) {
+                        score += 50;
+                    }
+
+                    // Skin type match
+                    if (service.forSkinTypes.includes(userProfile.skinType)) {
+                        score += 25;
+                    }
+
+                    // Concerns match
+                    const concernMatches = service.forConcerns.filter(concern =>
+                        userProfile.concerns.includes(concern)
+                    ).length;
+
+                    if (concernMatches > 0) {
+                        score += 25 * (concernMatches / Math.max(service.forConcerns.length, 1));
+                    }
+
+                    // Time preferences
+                    if (userProfile.time === 'quick' && ['Làm sạch da cơ bản', 'Rửa mặt chuyên sâu'].includes(service.name)) {
+                        score += 10;
+                    } else if (userProfile.time === 'comprehensive' && ['Tái tạo da bằng laser', 'Liệu trình Vitamin C', 'Liệu trình cấp ẩm'].includes(service.name)) {
+                        score += 10;
+                    }
+
+                    // Experience level
+                    if (userProfile.experience === 'never' && ['Làm sạch da cơ bản', 'Massage mặt thư giãn'].includes(service.name)) {
+                        score += 10;
+                    } else if (userProfile.experience === 'frequent' && ['Tái tạo da bằng laser', 'Liệu trình Vitamin C'].includes(service.name)) {
+                        score += 10;
+                    }
+
+                    return {
+                        ...service,
+                        matchPercentage: Math.min(100, score)
+                    };
+                })
+                .sort((a, b) => b.matchPercentage - a.matchPercentage);
+        }
+
+        // Display results
+        function showResults() {
+            const recommendedServices = calculateRecommendations();
+            const container = document.getElementById('recommended-services');
+            container.innerHTML = ''; // Clear previous results
+
+            if (recommendedServices.length === 0) {
+                container.innerHTML = '<p>Không tìm thấy dịch vụ phù hợp. Vui lòng thử lại với các tùy chọn khác.</p>';
+                return;
+            }
+
+            // Display top 3 recommendations or all if less than 3
+            const topRecommendations = recommendedServices.slice(0, 3);
+
+            topRecommendations.forEach(service => {
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'service-card';
+                serviceCard.innerHTML = `
+                        <div class="service-name">${service.name}</div>
+                        <div class="match-percentage">Phù hợp ${service.matchPercentage}%</div>
+                        <div class="service-description">${service.description}</div>
+                    `;
+                container.appendChild(serviceCard);
+            });
+        }
+
+        // Handle option selection styling
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const input = this.querySelector('input');
+
+                if (input.type === 'radio') {
+                    // Deselect other options in the same group
+                    document.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => {
+                        radio.closest('.quiz-option').classList.remove('selected');
+                    });
+
+                    // Select this option
+                    this.classList.add('selected');
+                } else if (input.type === 'checkbox') {
+                    // Toggle selection
+                    this.classList.toggle('selected');
+                }
+            });
+        });
+
+        // Event listeners
+        nextBtn.addEventListener('click', goToNextStep);
+        prevBtn.addEventListener('click', goToPrevStep);
+
+        document.getElementById('booking-now').addEventListener('click', function() {
+            alert('Cảm ơn bạn! Chúng tôi sẽ đưa bạn đến trang đặt lịch.');
+
+            window.location.href   = 'booking.html';
+            // Redirect to booking page if available
+            // window.location.href = 'booking.html';
+        });
+
+        // Initialize progress
+        updateProgress();
+    });
+</script>
+</body>
+</html>

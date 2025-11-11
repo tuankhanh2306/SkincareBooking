@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Lịch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bungee+Tint&family=Dancing+Script:wght@400..700&family=Lobster&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Đảm bảo nội dung chính chiếm phần lớn để footer luôn ở cuối */
+        main {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px;
+        }
+        header, footer {
+            background-color: rgb(245, 111, 133);
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+            color: white;
+        }
+        header {
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        /*footer*/
+        footer{
+            background-color: rgb(245, 111, 133);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        /* Navigation */
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #e74c3c;
+            border-radius: 5px;
+        }
+        /* Banner */
+        .banner {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .banner img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+        /* Form */
+        form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+        button {
+            background-color: rgba(243, 105, 90, 0.9);
+            color: white;
+            border: 1px solid rgba(231, 76, 60, 0.5);
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: rgba(246, 27, 3, 0.7);
+        }
+        /* Section */
+        .anh-nen{
+            background-image: url('../img/Cream Minimalist and Modern Cosmetics Product Presentation.png');
+            background-color: rgb(137, 137, 137);
+            background-blend-mode: multiply;
+            background-position: center;
+            background-attachment: fixed;
+            width: 100%;
+            height: 400px;
+            position: relative;
+            margin: 10px 10px;
+            border-radius: 10px;
+        }
+        .h1{
+            position: absolute;
+            text-align: center;
+            top: 150px;
+            left: 27%;
+            color: white;
+            font-size: 40px;
+        }
+        .gioi-thieu h2{
+            margin-top: 50px;
+            font-size: 60px;
+            font-family: "Dancing Script", cursive;
+            color: #FF6699;
+        }
+        .h2-last{
+            margin-top: 50px;
+            font-size: 60px;
+            font-family: "Dancing Script", cursive;
+            color: #FF6699;
+            margin-bottom: 50px;
+        }
+        .section {
+            /* Khối section nằm giữa màn hình */
+            width: 90%;
+            max-width: 1000px;
+            margin-left: 25%;
+            /* Nội dung bên trong sẽ được căn lề trái */
+            text-align: left;
+        }
+        .div-last h2{
+            color: #FF6699;
+        }
+        .h1-first{
+            font-family: "Lobster", sans-serif;
+            font-size: 40px;
+        }
+        @media screen and (max-width: 480px) {
+            form {
+                width: 90%;
+                top: 60%;
+            }
+            .h1 {
+                font-size: 24px;
+                top: 100px;
+                left: 10%;
+            }
+            .gioi-thieu h2, .h2-last {
+                font-size: 36px;
+            }
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .user-info {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .user-info p {
+            margin: 5px 0;
+        }
+        .user-info strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 class="h1-first">Miyazono Kaori</h1>
+    <nav>
+        <ul>
+            <li><a href="../home.html">Trang Chủ</a></li>
+            <li><a href="../pages/services.html">Dịch Vụ</a></li>
+            <li><a href="../pages/about.html">Giới Thiệu</a></li>
+            <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+            <li><a href="../pages/contact.html">Liên Hệ</a></li>
+            <li><a href="../pages/Payment.html">Thanh Toán</a></li>
+            <li id="logout-btn" style="display:none;"><a href="#" onclick="logout()">Đăng xuất</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="anh-nen">
+    <h1 class="h1">Chuyên Gia Da Liễu Hàng Đầu – Đảm Bảo Uy Tín & Hiệu Quả</h1>
+</div>
+
+<div class="gioi-thieu">
+    <h2>Booking Ngay!</h2>
+</div>
+
+<div class="banner">
+    <img src="../img/now-booking.png" alt="Banner" />
+    <form id="bookingForm">
+        <!-- Hiển thị thông tin người dùng đã đăng nhập -->
+        <div id="userInfo" class="user-info">
+            <p><strong>Khách hàng:</strong> <span id="customerName">Đang tải...</span></p>
+            <p><strong>Email:</strong> <span id="customerEmail">Đang tải...</span></p>
+        </div>
+
+        <label for="appointmentDate">Chọn ngày hẹn:</label>
+        <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+        <label for="appointmentTime">Thời gian hẹn:</label>
+        <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+        <label for="serviceId">Chọn dịch vụ:</label>
+        <select id="serviceId" name="serviceId" required>
+            <option value="">-- Chọn dịch vụ --</option>
+        </select>
+
+        <label for="specialistId">Chọn chuyên viên:</label>
+        <select id="specialistId" name="specialistId" required>
+            <option value="">-- Chọn chuyên viên --</option>
+        </select>
+
+        <button type="submit">Đặt lịch</button>
+        <button type="reset">Xóa lựa chọn</button>
+    </form>
+</div>
+
+<br> <br>
+<hr style="width : 50%; margin: auto;">
+
+<div>
+    <h2 class="h2-last">Chúng tôi đảm bảo chất lượng lên hàng Đầu</h2>
+</div>
+
+<section class="section">
+    <div class="div-last">
+        <h2>1. Đội Ngũ Chuyên Gia Hàng Đầu</h2>
+        <article>
+            <ul>
+                <li>Hơn 15 năm kinh nghiệm trong lĩnh vực chăm sóc và điều trị da chuyên sâu.</li>
+                <li>Được chứng nhận bởi Hiệp hội Da Liễu Quốc Tế, đảm bảo quy trình điều trị chuẩn y khoa.</li>
+                <li> Đội ngũ chuyên gia từng tư vấn và cộng tác với các thương hiệu mỹ phẩm hàng đầu thế giới.</li>
+            </ul>
+        </article>
+    </div>
+    <div class="div-last">
+        <h2>2. Thành Tựu Nổi Bật</h2>
+        <article>
+            <ul>
+                <li>Đã điều trị thành công hơn 5.000 khách hàng, giúp họ lấy lại làn da khỏe mạnh, mịn màng. </li>
+                <li>Chuyên gia trong các phương pháp trị liệu tiên tiến như:</li>
+                <li>Liệu trình trẻ hóa da HIFU – nâng cơ, chống lão hóa hiệu quả.</li>
+                <li>Điều trị nám – tàn nhang bằng công nghệ laser.</li>
+                <li>Điện di vitamin C giúp da trắng sáng, căng bóng tự nhiên. </li>
+                <li>Chăm sóc da chuyên sâu với phác đồ cá nhân hóa.</li>
+            </ul>
+        </article>
+    </div>
+    <div class="div-last">
+        <h2>3. Cam Kết & Chất Lượng</h2>
+        <article>
+            <ul>
+                <li>Tư vấn 1:1 chuyên sâu với chuyên gia, đưa ra lộ trình điều trị phù hợp nhất.</li>
+                <li>Sử dụng công nghệ hiện đại, cam kết an toàn tuyệt đối.</li>
+                <li>100% khách hàng hài lòng với kết quả sau liệu trình.</li>
+            </ul>
+            <b>🔹 Hãy đặt lịch ngay hôm nay để được tư vấn miễn phí và trải nghiệm dịch vụ chăm sóc da chuyên nghiệp!</b>
+        </article>
+    </div>
+</section>
+
+<br> <br> <br> <br> <br> <br>
+
+<footer>
+    <p>&copy; Mọi thắc mắc hoặc khiếu nại của khách hàng tại Email: loclc8533@ut.edu.vn</p>
+</footer>
+
+<script>
+
+    // Biến lưu trữ thông tin người dùng hiện tại
+    let currentUser = null;
+    let customerId = null;
+    // chọn chuyên viên từ tham số
+    function selectSpecialist(specialistId, specialistName) {
+        const specialistSelect = document.getElementById('specialistId');
+        const options = specialistSelect.options;
+
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value == specialistId) {
+                specialistSelect.selectedIndex = i;
+                break;
+            }
+        }
+
+        // Nếu không tìm thấy ID trong danh sách, thêm tùy chọn mới
+        if (specialistSelect.value !== specialistId && specialistId) {
+            const option = document.createElement('option');
+            option.value = specialistId;
+            option.textContent = `${specialistName || 'Chuyên viên đã chọn'}`;
+            option.selected = true;
+            specialistSelect.appendChild(option);
+        }
+
+        // Sau khi chọn, xóa thông tin từ localStorage để tránh ảnh hưởng đến các lần đặt lịch tiếp theo
+        localStorage.removeItem('selectedSpecialistId');
+        localStorage.removeItem('selectedSpecialistName');
+    }
+
+
+    // Hàm để lấy dịch vụ từ API và điền vào dropdown dịch vụ
+    function fetchAndPopulateServices() {
+        const serviceDropdown = document.getElementById('serviceId');
+        // Xóa các tùy chọn hiện có trừ placeholder
+        while (serviceDropdown.options.length > 1) {
+            serviceDropdown.remove(1);
+        }
+
+        // Lấy token xác thực từ localStorage
+        const token = localStorage.getItem('token');
+
+        // Gọi API để lấy danh sách dịch vụ
+        fetch('http://localhost:8080/api/services', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(response => {
+                // Kiểm tra phản hồi từ server
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        throw new Error('Phiên đăng nhập đã hết hạn');
+                    }
+                    throw new Error('Không thể lấy danh sách dịch vụ');
+                }
+                return response.json();
+            })
+            .then(services => {
+                // Thêm từng dịch vụ vào dropdown
+                services.forEach(service => {
+                    const option = document.createElement('option');
+                    option.value = service.id; // Sử dụng ID của dịch vụ làm giá trị
+                    option.textContent = service.name; // Sử dụng tên dịch vụ để hiển thị
+                    serviceDropdown.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Lỗi khi lấy danh sách dịch vụ:', error);
+                // Xử lý trường hợp phiên đăng nhập hết hạn
+                if (error.message === 'Phiên đăng nhập đã hết hạn') {
+                    localStorage.removeItem('token');
+                    alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                    window.location.href = 'login.html';
+                }
+            });
+    }
+
+    // Hàm để lấy danh sách chuyên viên từ API và điền vào dropdown
+    function fetchAndPopulateSpecialists() {
+        const specialistDropdown = document.getElementById('specialistId');
+        // Xóa các tùy chọn hiện có trừ placeholder
+        while (specialistDropdown.options.length > 1) {
+            specialistDropdown.remove(1);
+        }
+
+        // Lấy token xác thực từ localStorage
+        const token = localStorage.getItem('token');
+
+        // Gọi API để lấy danh sách chuyên gia/bác sĩ
+        fetch('http://localhost:8080/api/specialists', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(response => {
+                // Kiểm tra phản hồi từ server
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        throw new Error('Phiên đăng nhập đã hết hạn');
+                    }
+                    throw new Error('Không thể lấy danh sách chuyên viên');
+                }
+                return response.json();
+            })
+            .then(specialists => {
+                // Thêm từng chuyên gia vào dropdown
+                specialists.forEach(specialist => {
+                    const option = document.createElement('option');
+                    option.value = specialist.id;
+                    // Sử dụng tên đầy đủ từ đối tượng user
+                    if (specialist.user && specialist.user.fullName) {
+                        option.textContent = specialist.user.fullName;
+                    } else {
+                        // Trường hợp dự phòng nếu cấu trúc không như mong đợi
+                        option.textContent = `Chuyên viên ID: ${specialist.id}`;
+                    }
+                    // Thêm thông tin chuyên môn nếu có
+                    if (specialist.expertise) {
+                        option.textContent += ` - ${specialist.expertise}`;
+                    }
+                    // Thêm số năm kinh nghiệm nếu có
+                    if (specialist.experience !== undefined && specialist.experience !== null) {
+                        option.textContent += ` (${specialist.experience} năm KN)`;
+                    }
+                    specialistDropdown.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Lỗi khi lấy danh sách chuyên viên:', error);
+                // Xử lý trường hợp phiên đăng nhập hết hạn
+                if (error.message === 'Phiên đăng nhập đã hết hạn') {
+                    localStorage.removeItem('token');
+                    alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                    window.location.href = 'login.html';
+                }
+            });
+    }
+
+    // Hàm lấy thông tin người dùng hiện tại
+    function fetchCurrentUserInfo() {
+        const token = localStorage.getItem('token');
+        fetch("http://localhost:8080/api/users/me", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        localStorage.removeItem('token');
+                        alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                        window.location.href = 'login.html';
+                        throw new Error('Phiên đăng nhập đã hết hạn');
+                    }
+                    throw new Error('Không thể lấy thông tin người dùng');
+                }
+                return response.json();
+            })
+            .then(userData => {
+                // Lưu thông tin người dùng
+                currentUser = userData;
+
+                // Hiển thị thông tin người dùng trong form
+                document.getElementById('customerName').textContent = userData.fullName || 'Không có thông tin';
+                document.getElementById('customerEmail').textContent = userData.email || 'Không có thông tin';
+
+                // Lấy customerId từ thông tin người dùng
+                if (userData.id) {
+                    customerId = userData.id;
+                } else {
+                    // Nếu không có thông tin customer, cần lấy thông tin từ API khác
+                    fetchCustomerInfo(userData.id);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy thông tin người dùng:", error);
+                if (error.message !== 'Phiên đăng nhập đã hết hạn') {
+                    // Hiển thị thông báo lỗi nếu không phải lỗi hết hạn đăng nhập
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'alert alert-danger';
+                    errorMessage.textContent = "Không thể lấy thông tin người dùng. Vui lòng tải lại trang.";
+                    document.getElementById("bookingForm").prepend(errorMessage);
+                    setTimeout(() => {
+                        errorMessage.remove();
+                    }, 5000);
+                }
+            });
+    }
+
+    //hàm lấy thông tin ng dùng từ id
+    function fetchCustomerInfo(id){
+        const token = localStorage.getItem('token')
+
+        fetch("http://localhost:8080/api/users/{id}",{
+            method: "GET",
+            header:{
+                "Authorization" : "Bearer" + token,
+                "Content-Type" : "application/json"
+            },
+            credentials:"include"
+
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        localStorage.removeItem('token');
+                        alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                        window.location.href = 'login.html';
+                        throw new Error('Phiên đăng nhập đã hết hạn');
+                    }
+                    throw new Error('Không thể lấy thông tin người dùng');
+                }
+                return response.json();
+            })
+            .then(customerData =>  {
+                customerId = customerData.id;
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy thông tin khách hàng:", error);
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'alert alert-danger';
+                errorMessage.textContent = "Không thể lấy thông tin khách hàng. Vui lòng liên hệ quản trị viên.";
+                document.getElementById("bookingForm").prepend(errorMessage);
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 5000);
+            });
+    }
+
+    // Hàm khởi tạo cả hai dropdown
+    function initializeDropdowns() {
+        // Lấy reference đến các dropdown
+        const serviceDropdown = document.getElementById('dich_vu');
+        const specialistDropdown = document.getElementById('bac_si');
+
+        if (serviceDropdown && specialistDropdown) {
+            // Xóa tất cả tùy chọn hiện có
+            serviceDropdown.innerHTML = '';
+            specialistDropdown.innerHTML = '';
+
+            // Thêm tùy chọn placeholder cho dropdown dịch vụ
+            const servicePlaceholder = document.createElement('option');
+            servicePlaceholder.value = '';
+            servicePlaceholder.textContent = '-- Chọn dịch vụ --';
+            servicePlaceholder.disabled = true;
+            servicePlaceholder.selected = true;
+            serviceDropdown.appendChild(servicePlaceholder);
+
+            // Thêm tùy chọn placeholder cho dropdown bác sĩ
+            const specialistPlaceholder = document.createElement('option');
+            specialistPlaceholder.value = '';
+            specialistPlaceholder.textContent = '-- Chọn bác sĩ --';
+            specialistPlaceholder.disabled = true;
+            specialistPlaceholder.selected = true;
+            specialistDropdown.appendChild(specialistPlaceholder);
+
+            // Gọi các hàm để lấy dữ liệu và điền vào dropdown
+            fetchAndPopulateServices();
+            fetchAndPopulateSpecialists();
+        }
+    }
+
+    // Hàm xử lý đăng xuất
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("selectedSpecialistId");
+        localStorage.removeItem("selectedSpecialistName");
+        window.location.href = "login.html";
+    }
+
+    function checkSpecialistAvailability(specialistId, appointmentDateTime) {
+        const token = localStorage.getItem('token');
+
+        // Tạo URL với tpham số truy vấn
+        const url = `htt://localhost:8080/api/appointments/check-availability?specialistId=${specialistId}&appointmentDateTime=${encodeURIComponent(appointmentDateTime)}`;
+
+        return fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        localStorage.removeItem('token');
+                        alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                        window.location.href = 'login.html';
+                        throw new Error('Phiên đăng nhập đã hết hạn');
+                    }
+                    throw new Error('Không thể kiểm tra tính khả dụng của chuyên viên');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Giả sử API trả về { available: true/false }
+                return data.available;
+            });
+    }
+
+    function showMessage(message, type = 'danger') {
+        // Xóa tất cả thông báo hiện có
+        const existingAlerts = document.querySelectorAll('.alert');
+        existingAlerts.forEach(alert => alert.remove());
+
+        // Tạo phần tử thông báo mới
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type}`;
+        alertDiv.textContent = message;
+
+        // Thêm vào form
+        document.getElementById("bookingForm").prepend(alertDiv);
+
+        // Tự động ẩn sau 5 giây
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 5000);
+    }
+    // Gọi hàm khởi tạo khi trang được tải
+    document.addEventListener('DOMContentLoaded', () => {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        const token = localStorage.getItem('token');
+        if (!token) {
+            // Nếu chưa đăng nhập, hiển thị thông báo và chuyển hướng
+            alert('Vui lòng đăng nhập để đặt lịch.');
+            window.location.href = 'login.html';
+            return;
+        } else {
+            // Nếu đã đăng nhập, hiển thị nút đăng xuất
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) logoutBtn.style.display = 'inline';
+
+            // Lấy thông tin người dùng và khởi tạo các dropdown
+            fetchCurrentUserInfo();
+            fetchAndPopulateServices();
+            fetchAndPopulateSpecialists();
+
+            // Kiểm tra nếu có chuyên viên được chọn từ trang chuyên viên
+            const selectedSpecialistId = localStorage.getItem('selectedSpecialistId');
+            const selectedSpecialistName = localStorage.getItem('selectedSpecialistName');
+            if (selectedSpecialistId) {
+                // Dùng setTimeout để đảm bảo danh sách chuyên viên đã được tải
+                setTimeout(() => {
+                    selectSpecialist(selectedSpecialistId, selectedSpecialistName);
+                }, 1000);
+            }
+
+            // Xử lý sự kiện submit form đặt lịch
+            const bookingForm = document.getElementById('bookingForm');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+                    // Kiểm tra xem đã có customerId chưa
+                    if (!customerId) {
+                        alert('Không thể xác định thông tin khách hàng. Vui lòng tải lại trang hoặc liên hệ quản trị viên.');
+                        return;
+                    }
+
+                    // Lấy dữ liệu từ form
+                    const appointmentDate = document.getElementById('appointmentDate').value;
+                    const appointmentTime = document.getElementById('appointmentTime').value;
+                    const serviceId = document.getElementById('serviceId').value;
+                    const specialistId = document.getElementById('specialistId').value;
+
+                    // Kiểm tra nếu các trường bắt buộc chưa được điền
+                    if (!appointmentDate || !appointmentTime || !serviceId || !specialistId) {
+                        alert('Vui lòng điền đầy đủ thông tin.');
+                        return;
+                    }
+
+                    // Kết hợp ngày và giờ thành chuỗi ISO datetime
+                    const appointmentDateTime = `${appointmentDate}T${appointmentTime}:00`;
+
+                    // Hiển thị trạng thái đang xử lý trên nút submit
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    const originalBtnText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = "Đang xử lý...";
+
+                    // Kiểm tra tính khả dụng của chuyên viên trước khi đặt lịch
+                    checkSpecialistAvailability(specialistId, appointmentDateTime)
+                        .then(isAvailable => {
+                            if (!isAvailable) {
+                                // Nếu chuyên viên không khả dụng vào thời gian đã chọn
+                                showMessage("Bác sĩ đã có lịch hẹn vào thời gian này. Vui lòng chọn thời gian khác hoặc chọn bác sĩ khác.", "danger");
+
+                                // Reset các trường đã chọn
+                                document.getElementById('appointmentTime').value = '';
+
+                                // Khôi phục nút submit
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = originalBtnText;
+
+                                return Promise.reject(new Error("Bác sĩ đã có lịch hẹn vào thời gian này"));
+                            }
+
+                            // Nếu chuyên viên khả dụng, tiếp tục quá trình đặt lịch
+                            // Tạo đối tượng dữ liệu cuộc hẹn theo cấu trúc AppointmentDto
+                            const appointmentData = {
+                                customerId: customerId,
+                                specialistId: parseInt(specialistId),
+                                serviceId: parseInt(serviceId),
+                                appointmentDate: appointmentDateTime,
+                                status: "PENDING"
+                            };
+
+                            // Lấy token xác thực
+                            const token = localStorage.getItem('token');
+
+                            // Gửi yêu cầu đặt lịch đến server
+                            return fetch("http://localhost:8080/api/appointments", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": "Bearer " + token
+                                },
+                                body: JSON.stringify(appointmentData),
+                                credentials: "include"
+                            });
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                if (response.status === 401 || response.status === 403) {
+                                    // Xử lý phiên hết hạn
+                                    localStorage.removeItem('token');
+                                    alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                                    window.location.href = 'login.html';
+                                    throw new Error('Phiên đăng nhập đã hết hạn');
+                                }
+                                return response.json().then(err => {
+                                    throw new Error(err.message || "Có lỗi khi gửi đặt lịch");
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Hiển thị thông báo thành công
+                            showMessage("Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn qua email.", "success");
+
+                            // Reset form ngoại trừ thông tin người dùng
+                            document.getElementById('appointmentDate').value = tomorrowFormatted; // Đặt lại giá trị mặc định
+                            document.getElementById('appointmentTime').value = '';
+                            document.getElementById('serviceId').selectedIndex = 0;
+                            document.getElementById('specialistId').selectedIndex = 0;
+                        })
+                        .catch(error => {
+                            console.error("Lỗi:", error);
+                            // Hiển thị thông báo lỗi (nếu chưa chuyển hướng và không phải lỗi đã xử lý)
+                            if (error.message !== 'Phiên đăng nhập đã hết hạn' &&
+                                error.message !== "Bác sĩ đã có lịch hẹn vào thời gian này") {
+                                showMessage( "Lịch bạn đặt của bác sĩ hiện k còn trống vui lòng chọn thời gian kh", "danger");
+                            }
+                        })
+                        .finally(() => {
+                            // Khôi phục nút submit nếu người dùng vẫn ở trang này và nếu chưa xử lý trong catch
+                            if (document.getElementById("bookingForm") && submitBtn.disabled) {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = originalBtnText;
+                            }
+                        });
+                });
+            }
+        }
+
+        // Thiết lập giá trị mặc định cho ngày đặt lịch (ngày hiện tại + 1 ngày)
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+        document.getElementById('appointmentDate').min = tomorrowFormatted;
+        document.getElementById('appointmentDate').value = tomorrowFormatted;
+    });
+</script>
+
+</body>
+</html>

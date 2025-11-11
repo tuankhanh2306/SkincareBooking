@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Miyazono Kaori</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Bungee+Tint&family=Dancing+Script:wght@400..700&family=Lobster&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('../img/Black and White Simple Aesthetic Skincare Product Presentation.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #f8d7da;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .h1-first {
+            color: #d14d72;
+            font-size: 38px;
+            font-family: "Dancing Script", cursive;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 5px;
+        }
+
+        nav ul li a {
+            color: #d14d72;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #fbe4e6;
+            color: #b23a5d;
+            transform: translateY(-2px);
+        }
+
+        .first-li i {
+            font-size: 24px;
+            color: #d14d72;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 420px;
+            margin: 100px auto;
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #555;
+            padding: 25px;
+            box-shadow: 0 5px 25px rgba(209, 77, 114, 0.15);
+        }
+
+        .style-ne {
+            background-color: #fef8f8;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(209, 77, 114, 0.08);
+        }
+
+        .login h1 {
+            font-size: 32px;
+            color: #d14d72;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            font-family: "Dancing Script", cursive;
+        }
+
+        i {
+            font-size: 22px;
+            color: #d14d72;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        #userEmail,
+        #password {
+            border-radius: 25px;
+            padding: 12px 15px;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #f8d7da;
+            color: #555;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #userEmail:focus,
+        #password:focus {
+            border-color: #d14d72;
+            box-shadow: 0 0 8px rgba(209, 77, 114, 0.2);
+        }
+
+        #submit {
+            border-radius: 25px;
+            padding: 12px;
+            width: 100%;
+            max-width: 200px;
+            background-color: #d14d72;
+            border: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px auto;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+
+        #submit:hover {
+            background-color: #b23a5d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(209, 77, 114, 0.3);
+        }
+
+        .dk {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #d14d72;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #b23a5d;
+            text-decoration: underline;
+        }
+
+        span {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                margin: 100px auto;
+            }
+
+            .h1-first {
+                font-size: 32px;
+            }
+
+            nav ul li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .first-li i {
+                font-size: 22px;
+            }
+
+            .style-ne {
+                padding: 20px;
+            }
+
+            #submit {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <h1 class="h1-first">Miyazono Kaori</h1>
+    <nav>
+        <ul>
+            <li><a href="../home.html">Trang Chủ</a></li>
+            <li><a href="../pages/services.html">Dịch Vụ</a></li>
+            <li><a href="../pages/about.html">Giới Thiệu</a></li>
+            <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+            <li><a href="../pages/contact.html">Liên Hệ</a></li>
+            <li id="logout-btn"><a href="#" onclick="logout()">Đăng xuất</a></li>
+
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="style-ne">
+        <div class="login">
+            <h1><i class="fa-solid fa-right-to-bracket"></i>LOGIN<i class="fa-solid fa-heart"></i></h1>
+        </div>
+        <div class="form">
+            <form id="login-form" method="post">
+                <label for="userEmail">Email</label>
+                <input type="email" id="userEmail" placeholder="Nhập email của bạn" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+
+                <div class="dk">
+                    <button type="submit" id="submit">Đăng Nhập</button>
+                </div>
+                <span>Chưa có tài khoản? <a href="../pages/register.html">Đăng ký tại đây</a></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('userEmail').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!email || !password) {
+                alert('Vui lòng nhập đầy đủ email và mật khẩu.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8080/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role || '');
+                    alert('Đăng nhập thành công!');
+                    if(data.role === "ADMIN"){
+                        window.location.href = 'manager2.html';
+                    }
+                    else if(data.role === "SPECIALIST"){
+                        window.location.href = 'SpecialistPersonal.html';
+                    }
+                    else{
+                        window.location.href = '../home.html';
+                    }
+
+                } else {
+                    const error = await response.json();
+                    alert('Đăng nhập thất bại: ' + (error.message || 'Sai thông tin đăng nhập.'));
+                }
+            } catch (error) {
+                console.error('Lỗi khi gửi yêu cầu đăng nhập:', error);
+                alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        });
+    });
+</script>
+</body>
+</html>

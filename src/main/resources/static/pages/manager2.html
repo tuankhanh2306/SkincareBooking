@@ -1,0 +1,1401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare Booking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background-color: #f56f85;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Table */
+        .data-table {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #6c5ce7;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Tabs */
+        .tab {
+            display: none;
+        }
+
+        .tab-active {
+            display: block;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Skincare Booking</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="#" class="active" data-tab="users-tab"><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#" data-tab="appointments-tab"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="#" data-tab="services-tab"><i class="fas fa-spa"></i> Services</a></li>
+                <li><a href="#" data-tab="specialists-tab"><i class="fas fa-user-md"></i> Specialists</a></li>
+                <li><a href="#" data-tab="payments-tab"><i class="fas fa-money-bill-wave"></i> Payments</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Admin Dashboard</h1>
+            <div>
+                <button id="back-btn" class="btn btn-danger">Back</button>
+                <button id="logout-btn" class="btn btn-danger">Logout</button>
+            </div>
+
+
+        </div>
+
+        <!-- Users Tab -->
+        <div id="users-tab" class="tab tab-active">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Users Management</h2>
+                    <button class="btn btn-primary" id="add-user-btn">Add User</button>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>PhoneNumber</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="users-list">
+                    <!-- User data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Appointments Tab -->
+        <div id="appointments-tab" class="tab">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Appointments</h2>
+                    <button class="btn btn-primary" id="add-appointment-btn">Create Appointment</button>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Specialist</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>CreateAt</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="appointments-list">
+                    <!-- Appointment data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Services Tab -->
+        <div id="services-tab" class="tab">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Services</h2>
+                    <button class="btn btn-primary" id="add-service-btn">Add Service</button>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="services-list">
+                    <!-- Service data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Specialists Tab -->
+        <div id="specialists-tab" class="tab">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Specialists</h2>
+                    <button class="btn btn-primary" id="add-specialist-btn">Add Specialist</button>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Expertise</th>
+                        <th>Experience</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="specialists-list">
+                    <!-- Specialist data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Payments Tab -->
+        <div id="payments-tab" class="tab">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Payments</h2>
+                    <button class="btn btn-primary" id="add-payment-btn">Add Payment</button>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Method</th>
+                        <th>Status</th>
+                        <th>Paid At</th>
+                    </tr>
+                    </thead>
+                    <tbody id="payments-list">
+                    <!-- Payment data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div id="user-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="user-modal-title">Add User</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="number" id="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" class="form-control" required>
+                        <option value="CUSTOMER">Customer</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="SPECIALIST">Specialist</option>
+                    </select>
+                </div>
+                <div class="form-group" id="password-field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger close-modal">Cancel</button>
+            <button class="btn btn-primary" id="save-user">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Appointment Modal -->
+<div id="appointment-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="appointment-modal-title">Create Appointment</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="appointment-form">
+                <input type="hidden" id="appointment-id">
+                <div class="form-group">
+                    <label for="customer">Customer:</label>
+                    <select id="customer" class="form-control" required>
+                        <!-- Customer options will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="service">Service:</label>
+                    <select id="service" class="form-control" required>
+                        <!-- Service options will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="specialist">Specialist:</label>
+                    <select id="specialist" class="form-control" required>
+                        <!-- Specialist options will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" class="form-control" required>
+                        <option value="PENDING">Pending</option>
+                        <option value="CONFIRMED">Confirmed</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="CANCELLED">Cancelled</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger close-modal">Cancel</button>
+            <button class="btn btn-primary" id="save-appointment">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Service Modal -->
+<div id="service-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="service-modal-title">Add Service</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="service-form">
+                <input type="hidden" id="service-id">
+                <div class="form-group">
+                    <label for="service-name">Name:</label>
+                    <input type="text" id="service-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration (minutes):</label>
+                    <input type="number" id="duration" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" class="form-control" step="0.01" required>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger close-modal">Cancel</button>
+            <button class="btn btn-primary" id="save-service">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Specialist Modal -->
+<div id="specialist-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="specialist-modal-title">Add Specialist</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="specialist-form">
+                <input type="hidden" id="specialist-id">
+                <div class="form-group">
+                    <label for="specialist-name">Name:</label>
+                    <input type="text" id="specialist-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialist-email">Email:</label>
+                    <input type="email" id="specialist-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialist-phone">Phone:</label>
+                    <input type="tel" id="specialist-phone" class="form-control" required>
+                </div>
+                <div class="form-group form-group-password">
+                    <label for="specialist-password">Password</label>
+                    <input type="password" class="form-control" id="specialist-password" placeholder="Enter password">
+                </div>
+                <div class="form-group form-group-password">
+                    <label for="specialist-confirm-password">Confirm Password</label>
+                    <input type="password" class="form-control" id="specialist-confirm-password" placeholder="Confirm password">
+                </div>
+                <div class="form-group">
+                    <label for="specialization">Specialization:</label>
+                    <input type="text" id="specialization" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Experience (Years):</label>
+                    <input type="number" id="experience" class="form-control" min="0" value="0">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger close-modal">Cancel</button>
+            <button class="btn btn-primary" id="save-specialist">Save</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    // Base URL for API calls
+    const API_BASE_URL = 'http://localhost:8080/api';
+    let authToken = localStorage.getItem('token');  // Get token from localStorage
+
+    // Tab navigation
+    document.querySelectorAll('.sidebar-menu a').forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.sidebar-menu a').forEach(t => {
+                t.classList.remove('active');
+            });
+
+            // Add active class to clicked tab
+            this.classList.add('active');
+
+            // Hide all tab contents
+            document.querySelectorAll('.tab').forEach(content => {
+                content.classList.remove('tab-active');
+            });
+
+            // Show the tab content related to clicked tab
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('tab-active');
+        });
+    });
+
+    function showSuccess(message) {
+        alert(message); // hoặc dùng toast, modal tùy bạn
+    }
+
+    function showError(message) {
+        alert(message);
+    }
+
+
+    // Quản lý phương thức
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Đóng phương thức khi nhấp vào nút X hoặc Hủy
+    document.querySelectorAll('.close, .close-modal').forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            modal.style.display = 'none';
+        });
+    });
+
+    // đóng phương thức khi nhấp vào bên ngoài
+    window.addEventListener('click', function(event) {
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+   //hamf fetch chung
+    async function fetchData(url, options = {}) {
+        if (!options.headers) {
+            options.headers = {};
+        }
+
+        options.headers.Authorization = `Bearer ${authToken}`;
+        options.headers['Content-Type'] = 'application/json';
+
+        try {
+            const response = await fetch(`${API_BASE_URL}${url}`, options);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Fetch error:', error);
+            return null;
+        }
+    }
+
+    // Load data functions
+    async function loadUsers() {
+        const usersList = document.getElementById('users-list');
+        usersList.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading users...</td></tr>';
+
+        const users = await fetchData('/users');
+
+        if (users && users.length > 0) {
+            usersList.innerHTML = '';
+            users.forEach(user => {
+                usersList.innerHTML += `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.fullName || user.name || 'N/A'}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phoneNumber}</td>
+                            <td>${user.role}</td>
+                            <td class="actions">
+                                <button class="btn btn-success btn-sm" onclick="editUser(${user.id})">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+            });
+        } else {
+            usersList.innerHTML = '<tr><td colspan="5" style="text-align:center;">No users found</td></tr>';
+        }
+    }
+
+    async function editUser(userId) {
+        const user = await fetchData(`/users/${userId}`);
+        if (user) {
+            document.getElementById('user-id').value = user.id;
+            document.getElementById('name').value = user.fullName || user.name || '';
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = user.phoneNumber;
+            document.getElementById('role').value = user.role;
+            document.getElementById('password-field').style.display = 'none';
+            document.getElementById('user-modal-title').textContent = 'Edit User';
+            openModal('user-modal');
+        }
+    }
+
+
+    async function deleteUser(userId) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            await fetchData(`/users/${userId}`, {
+                method: 'DELETE'
+
+            });
+            loadUsers();
+        }
+    }
+    // Create/Edit/Delete functions for Users
+    document.getElementById('add-user-btn').addEventListener('click', function() {
+        document.getElementById('user-form').reset();
+        document.getElementById('user-id').value = '';
+        document.getElementById('user-modal-title').textContent = 'Add User';
+        document.getElementById('password-field').style.display = 'block';
+        openModal('user-modal');
+    });
+
+    document.getElementById('save-user').addEventListener('click', async function () {
+        try {
+            const userId = document.getElementById('user-id').value;
+            const userData = {
+                fullName: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                role: document.getElementById('role').value,
+                phoneNumber: document.getElementById('phone').value,
+
+            };
+
+            if (!userId) {
+                // Create new user
+
+                userData.password =document.getElementById('password').value
+                const response = await fetch(`${API_BASE_URL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (!response.ok) throw new Error("Error creating user");
+
+                showSuccess('User created successfully');
+            } else {
+                // Update user
+                const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (!response.ok) throw new Error("Error updating user");
+
+                showSuccess('User updated successfully');
+            }
+
+            closeModal('user-modal');
+            await loadUsers();
+
+        } catch (error) {
+            console.error('Error saving user:', error);
+            showError('Failed to save user. Please try again.');
+        }
+    });
+
+
+    document.getElementById('add-appointment-btn').addEventListener('click', async function() {
+        document.getElementById('appointment-form').reset();
+        document.getElementById('appointment-id').value = '';
+        document.getElementById('appointment-modal-title').textContent = 'Create Appointment';
+
+        // Load customers, services, and specialists for dropdowns
+        await loadDropdownOptions();
+
+        openModal('appointment-modal');
+    });
+
+    // Fixed Save Appointment Function
+    document.getElementById('save-appointment').addEventListener('click', async function () {
+        try {
+            const appointmentId = document.getElementById('appointment-id').value;
+            const customerId = document.getElementById('customer').value;
+            const serviceId = document.getElementById('service').value;
+            const specialistId = document.getElementById('specialist').value;
+            const appointmentDate = document.getElementById('date').value;
+            const appointmentTime = document.getElementById('time').value;
+            const status = document.getElementById('status').value;
+
+            if (!customerId || !serviceId || !specialistId || !appointmentDate || !appointmentTime || !status) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const appointmentDateTime = `${appointmentDate}T${appointmentTime}:00`;
+
+            // Create the appointment data object
+            const appointmentData = {
+                customerId: parseInt(customerId),
+                serviceId: parseInt(serviceId),
+                specialistId: parseInt(specialistId),
+                appointmentDate: appointmentDateTime,
+                status: status,
+            };
+
+            // Add createdAt only for new appointments
+            if (!appointmentId) {
+                appointmentData.createdAt = new Date().toISOString();
+            }
+
+            let response;
+
+            if (!appointmentId) {
+                // Create new appointment
+                response = await fetch(`${API_BASE_URL}/appointments`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(`Error creating appointment: ${response.status} - ${errorData}`);
+                }
+
+                showSuccess('Appointment created successfully');
+            } else {
+                // For updates, get the existing data first
+                const existingResponse = await fetch(`${API_BASE_URL}/appointments/${appointmentId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!existingResponse.ok) {
+                    throw new Error("Failed to fetch existing appointment data");
+                }
+
+                const existingData = await existingResponse.json();
+
+                // Combine existing data with new data for the update
+                const updateData = {
+                    ...appointmentData,
+                    id: parseInt(appointmentId),
+                    createdAt: existingData.createdAt // Keep the original createdAt
+                };
+
+                response = await fetch(`${API_BASE_URL}/appointments/${appointmentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(`Error updating appointment: ${response.status} - ${errorData}`);
+                }
+
+                showSuccess('Appointment updated successfully');
+            }
+
+            closeModal('appointment-modal');
+            await loadAppointments();
+
+        } catch (error) {
+            console.error('Error saving appointment:', error);
+            showError(`Failed to save appointment: ${error.message}`);
+        }
+    });
+
+    async function loadAppointments() {
+        const appointmentsList = document.getElementById('appointments-list');
+        appointmentsList.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading appointments...</td></tr>';
+
+        try {
+            const appointments = await fetchData('/appointments');
+
+            if (appointments && appointments.length > 0) {
+                appointmentsList.innerHTML = '';
+                appointments.forEach(appointment => {
+                    let formattedDate = 'N/A';
+                    let formattedTime = 'N/A';
+
+                    if (appointment.appointmentDate) {
+                        const dateObj = new Date(appointment.appointmentDate);
+                        formattedDate = dateObj.toLocaleDateString();
+                        formattedTime = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+
+                    const createdAtFormatted = appointment.createdAt
+                        ? new Date(appointment.createdAt).toLocaleString()
+                        : 'N/A';
+
+                    appointmentsList.innerHTML += `
+                    <tr>
+                        <td>${appointment.id}</td>
+                        <td>${appointment.customerName || 'N/A'}</td>
+                        <td>${appointment.serviceName || 'N/A'}</td>
+                        <td>${appointment.specialistName || 'N/A'}</td>
+                        <td>${formattedDate}</td>
+                        <td>${formattedTime}</td>
+                        <td>${appointment.status || 'N/A'}</td>
+                        <td>${createdAtFormatted}</td>
+                        <td class="actions">
+                            <button class="btn btn-success btn-sm" onclick="editAppointment(${appointment.id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteAppointment(${appointment.id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                });
+            } else {
+                appointmentsList.innerHTML = '<tr><td colspan="8" style="text-align:center;">No appointments found</td></tr>';
+            }
+        } catch (error) {
+            console.error('Error loading appointments:', error);
+            appointmentsList.innerHTML = '<tr><td colspan="8" style="text-align:center;">Error loading appointments</td></tr>';
+            showError('Failed to load appointments');
+        }
+    }
+
+    async function editAppointment(appointmentId) {
+        try {
+
+            await loadDropdownOptions();
+            const appointment = await fetchData(`/appointments/${appointmentId}`);
+
+            if (!appointment) {
+                throw new Error("Could not load appointment data");
+            }
+
+            document.getElementById('appointment-id').value = appointment.id;
+
+            // Set dropdown values
+            document.getElementById('customer').value = appointment.customerId;
+            document.getElementById('service').value = appointment.serviceId;
+            document.getElementById('specialist').value = appointment.specialistId;
+
+            // Parse and set the date and time
+            if (appointment.appointmentDate) {
+                const dateObj = new Date(appointment.appointmentDate);
+
+                // Format date as YYYY-MM-DD for input
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                document.getElementById('date').value = `${year}-${month}-${day}`;
+
+                // Format time as HH:MM for input
+                const hours = String(dateObj.getHours()).padStart(2, '0');
+                const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+                document.getElementById('time').value = `${hours}:${minutes}`;
+            }
+
+            document.getElementById('status').value = appointment.status || 'PENDING';
+            document.getElementById('appointment-modal-title').textContent = 'Edit Appointment';
+
+            openModal('appointment-modal');
+        } catch (error) {
+            console.error('Error loading appointment for edit:', error);
+            showError('Failed to load appointment details');
+        }
+    }
+
+    // Fixed deleteAppointment function
+    async function deleteAppointment(appointmentId) {
+        if (confirm('Are you sure you want to delete this appointment?')) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/appointments/${appointmentId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to delete appointment: ${response.status}`);
+                }
+
+                showSuccess('Appointment deleted successfully');
+                await loadAppointments();
+            } catch (error) {
+                console.error('Error deleting appointment:', error);
+                showError('Failed to delete appointment');
+            }
+        }
+    }
+
+    // Improved loadDropdownOptions function
+    async function loadDropdownOptions() {
+        try {
+            // Load customers for dropdown
+            const customers = await fetchData('/users?role=CUSTOMER');
+            const customerSelect = document.getElementById('customer');
+            customerSelect.innerHTML = '<option value="">Select Customer</option>';
+
+            if (customers && customers.length > 0) {
+                customers.forEach(customer => {
+                    customerSelect.innerHTML += `<option value="${customer.id}">${customer.fullName || customer.name || customer.email}</option>`;
+                });
+            }
+
+            // Load services for dropdown
+            const services = await fetchData('/services');
+            const serviceSelect = document.getElementById('service');
+            serviceSelect.innerHTML = '<option value="">Select Service</option>';
+
+            if (services && services.length > 0) {
+                services.forEach(service => {
+                    serviceSelect.innerHTML += `<option value="${service.id}">${service.name}</option>`;
+                });
+            }
+
+            // Load specialists for dropdown
+            const specialists = await fetchData('/specialists');
+            const specialistSelect = document.getElementById('specialist');
+            specialistSelect.innerHTML = '<option value="">Select Specialist</option>';
+
+            if (specialists && specialists.length > 0) {
+                specialists.forEach(specialist => {
+                    specialistSelect.innerHTML += `<option value="${specialist.id}">${specialist.user ? specialist.user.fullName : 'Unknown'}</option>`;
+                });
+            }
+        } catch (error) {
+            console.error('Error loading dropdown options:', error);
+            showError('Failed to load form options');
+        }
+    }
+
+
+    async function loadServices() {
+        const servicesList = document.getElementById('services-list');
+        servicesList.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading services...</td></tr>';
+
+        const services = await fetchData('/services');
+
+        if (services && services.length > 0) {
+            servicesList.innerHTML = '';
+            services.forEach(service => {
+                servicesList.innerHTML += `
+                        <tr>
+                            <td>${service.id}</td>
+                            <td>${service.name}</td>
+                            <td>${service.description}</td>
+                            <td>${service.duration}</td>
+                            <td>${service.price}</td>
+                            <td class="actions">
+                                <button class="btn btn-success btn-sm" onclick="editService(${service.id})">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteService(${service.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+            });
+        } else {
+            servicesList.innerHTML = '<tr><td colspan="5" style="text-align:center;">No services found</td></tr>';
+        }
+    }
+    // Create/Edit/Delete functions for Services
+    document.getElementById('add-service-btn').addEventListener('click', function() {
+        document.getElementById('service-form').reset();
+        document.getElementById('service-id').value = '';
+        document.getElementById('service-modal-title').textContent = 'Add Service';
+        openModal('service-modal');
+    });
+
+    document.getElementById('save-service').addEventListener('click', async function() {
+        try {
+            const serviceId = document.getElementById('service-id').value;
+            const serviceData = {
+                name: document.getElementById('service-name').value,
+                description: document.getElementById('description').value,
+                duration: parseInt(document.getElementById('duration').value) || 0,
+                price: parseFloat(document.getElementById('price').value) || 0
+            };
+
+            if (!serviceId) {
+                // Create new service
+                const response = await fetch(`${API_BASE_URL}/services`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(serviceData)
+                });
+
+                if (!response.ok) throw new Error("Error creating service");
+                showSuccess('Service created successfully');
+            } else {
+                // Update existing service
+                const response = await fetch(`${API_BASE_URL}/services/${serviceId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(serviceData)
+                });
+
+                if (!response.ok) throw new Error("Error updating service");
+                showSuccess('Service updated successfully');
+            }
+
+            closeModal('service-modal');
+            await loadServices();
+        } catch (error) {
+            console.error('Error saving service:', error);
+            showError('Failed to save service. Please try again.');
+        }
+    });
+
+    async function editService(serviceId) {
+        const service = await fetchData(`/services/${serviceId}`);
+        if (service) {
+            document.getElementById('service-id').value = service.id;
+            document.getElementById('service-name').value = service.name;
+            document.getElementById('description').value = service.description;
+            document.getElementById('duration').value = service.duration;
+            document.getElementById('price').value = service.price;
+            document.getElementById('service-modal-title').textContent = 'Edit Service';
+            openModal('service-modal');
+        }
+    }
+
+    async function deleteService(serviceId) {
+        if (confirm('Are you sure you want to delete this service?')) {
+            await fetchData(`/services/${serviceId}`, { method: 'DELETE' });
+            loadServices();
+        }
+    }
+
+    async function loadSpecialists() {
+        const specialistsList = document.getElementById('specialists-list');
+        specialistsList.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading specialists...</td></tr>';
+
+        const specialists = await fetchData('/specialists');
+
+        if (specialists && specialists.length > 0) {
+            specialistsList.innerHTML = '';
+            specialists.forEach(specialist => {
+                specialistsList.innerHTML += `
+                <tr>
+                    <td>${specialist.id}</td>
+                    <td>${specialist.user.fullName}</td>
+                    <td>${specialist.user.email}</td>
+                    <td>${specialist.expertise}</td>
+                    <td>${specialist.experience}</td>
+                    <td class="actions">
+                        <button class="btn btn-success btn-sm" onclick="editSpecialist(${specialist.id})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteSpecialist(${specialist.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+            });
+        } else {
+            specialistsList.innerHTML = '<tr><td colspan="6" style="text-align:center;">No specialists found</td></tr>';
+        }
+    }
+
+    // Open Add Modal
+    document.getElementById('add-specialist-btn').addEventListener('click', function () {
+        document.getElementById('specialist-form').reset();
+        document.getElementById('specialist-id').value = '';
+        document.getElementById('specialist-modal-title').textContent = 'Add Specialist';
+
+        // Hiện các trường mật khẩu
+        document.querySelectorAll('.form-group-password').forEach(el => el.style.display = 'block');
+
+        // Reset password fields
+        document.getElementById('specialist-password').value = '';
+        document.getElementById('specialist-confirm-password').value = '';
+
+        openModal('specialist-modal');
+    });
+
+    // Save Specialist
+    document.getElementById('save-specialist').addEventListener('click', async function () {
+        try {
+            const specialistId = document.getElementById('specialist-id').value;
+            const name = document.getElementById('specialist-name').value.trim();
+            const email = document.getElementById('specialist-email').value.trim();
+            const phone = document.getElementById('specialist-phone').value.trim();
+            const password = document.getElementById('specialist-password').value;
+            const confirmPassword = document.getElementById('specialist-confirm-password').value;
+            const specialization = document.getElementById('specialization').value.trim();
+            const experience = parseInt(document.getElementById('experience').value) || 0;
+
+            if (!name || !email || !phone || !specialization) {
+                showError('Please fill in all required fields.');
+                return;
+            }
+
+            if (!specialistId) {
+                // Check password only on new specialist
+                if (!password || !confirmPassword) {
+                    showError('Password and confirm password are required.');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    showError('Passwords do not match.');
+                    return;
+                }
+            }
+
+            const specialistData = {
+                user: {
+                    fullName: name,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                    confirmPassword: confirmPassword
+                },
+                expertise: specialization,
+                experience: experience
+            };
+
+            let response;
+            if (!specialistId) {
+                // Create
+                response = await fetch(`${API_BASE_URL}/specialists`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(specialistData)
+                });
+                if (!response.ok) throw new Error("Error creating specialist");
+                showSuccess('Specialist created successfully');
+            } else {
+                // Update
+                response = await fetch(`${API_BASE_URL}/specialists/${specialistId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(specialistData)
+                });
+                if (!response.ok) throw new Error("Error updating specialist");
+                showSuccess('Specialist updated successfully');
+            }
+
+            closeModal('specialist-modal');
+            await loadSpecialists();
+        } catch (error) {
+            console.error('Error saving specialist:', error);
+            showError('Failed to save specialist. Please try again.');
+        }
+    });
+
+
+    // Edit specialist
+    async function editSpecialist(specialistId) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/specialists/${specialistId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch specialist data');
+            }
+
+            const specialist = await response.json();
+
+            if (specialist) {
+                document.getElementById('specialist-id').value = specialist.id;
+                document.getElementById('specialist-name').value = specialist.user.fullName || '';
+                document.getElementById('specialist-email').value = specialist.user.email || '';
+                document.getElementById('specialist-phone').value = specialist.user.phone || '';
+                document.getElementById('specialization').value = specialist.expertise || '';
+                document.getElementById('experience').value = specialist.experience || 0;
+
+                document.getElementById('specialist-modal-title').textContent = 'Edit Specialist';
+
+                // Ẩn các trường mật khẩu khi chỉnh sửa
+                document.querySelectorAll('.form-group-password').forEach(el => el.style.display = 'none');
+
+                openModal('specialist-modal');
+            }
+        } catch (error) {
+            console.error('Error fetching specialist details:', error);
+            showError('Failed to load specialist details. Please try again.');
+        }
+    }
+
+    // Delete specialist
+    async function deleteSpecialist(specialistId) {
+        if (confirm('Are you sure you want to delete this specialist?')) {
+            await fetchData(`/specialists/${specialistId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
+            loadSpecialists();
+        }
+    }
+
+
+
+
+    // Initialize app
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if user is logged in
+        if (authToken === "CUSTOMER" || authToken === "SPECIALIST") {
+            showError("Bạn không có quyền hạn truy cập trang này !")
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Load initial data
+        loadUsers();
+
+        // Set up logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        });
+        document.getElementById('back-btn').addEventListener('click', function() {
+            window.location.href = '../home.html';
+        });
+
+        // Set up event listeners for tab switching to load data
+        document.querySelector('[data-tab="appointments-tab"]').addEventListener('click', loadAppointments);
+        document.querySelector('[data-tab="services-tab"]').addEventListener('click', loadServices);
+        document.querySelector('[data-tab="specialists-tab"]').addEventListener('click', loadSpecialists);
+        document.querySelector('[data-tab="payments-tab"]').addEventListener('click', loadPayments);
+    });
+
+    // Additional event listeners for specialists and appointments
+
+
+
+    async function loadPayments() {
+        const paymentsList = document.getElementById('payments-list');
+        paymentsList.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading payments...</td></tr>';
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/payment`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch payments");
+
+            const payments = await response.json();
+
+            if (payments && payments.length > 0) {
+                paymentsList.innerHTML = '';
+                payments.forEach(payment => {
+                    paymentsList.innerHTML += `
+                    <tr>
+                        <td>${payment.id}</td>
+                        <td>${payment.appointmentId}</td>
+                        <td>${payment.amount ? `$${payment.amount.toFixed(2)}` : 'N/A'}</td>
+                        <td>${payment.paymentMethod || 'N/A'}</td>
+                        <td>${payment.status || 'N/A'}</td>
+                        <td>${new Date(payment.createdAt).toLocaleString() || 'N/A'}</td>
+                    </tr>
+                `;
+                });
+            } else {
+                paymentsList.innerHTML = '<tr><td colspan="6" style="text-align:center;">No payment records found.</td></tr>';
+            }
+        } catch (error) {
+            console.error('Error loading payments:', error);
+            paymentsList.innerHTML = '<tr><td colspan="6" style="text-align:center;">Error loading payments.</td></tr>';
+        }
+    }
+
+
+
+    // Create/Edit/Delete functions for Appointments
+
+
+    // Error handling function
+    function showError(message) {
+        alert(`Error: ${message}`);
+    }
+
+    // Success message function
+    function showSuccess(message) {
+        alert(`Success: ${message}`);
+    }
+
+    // Handle token expiration or unauthorized access
+    async function checkAuth(response) {
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

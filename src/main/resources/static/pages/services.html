@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Vụ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300..900&family=Dancing+Script:wght@400..700&family=Lobster&family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Body */
+    body {
+        background-color: #FFFFFF;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+        background-color: rgb(245, 111, 133);
+        text-align: center;
+        padding: 20px;
+    }
+
+    .h1-first {
+        color: white;
+        font-size: 40px;
+        font-family: "Lobster", sans-serif;
+    }
+
+    nav ul li {
+        display: inline;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px 15px;
+        transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+        background-color: #e74c3c;
+        border-radius: 5px;
+    }
+
+    /* Footer */
+    footer {
+        background-color: rgb(245, 111, 133);
+        color: white;
+        text-align: center;
+        padding: 15px;
+        margin-top: 40px;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    footer a {
+        color: #e74c3c;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Background Image Section */
+    .anh-nen {
+        background-image: url('../img/Brown and Beige Modern Skincare Product Presentation.png');
+        width: 100%;
+        height: 400px;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        margin: 5px 0;
+        border-radius: 20px;
+        position: relative;
+    }
+
+    .h1-center {
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        text-align: center;
+        font-family: "Dancing Script", cursive;
+    }
+
+    /* Section for Services */
+    .h2-first {
+        text-align: center;
+        margin: 30px 0;
+        color: #FF6699;
+        font-family: "Dancing Script", cursive;
+        font-size: 40px;
+        line-height: 1.2;
+    }
+
+    .gach-ngang {
+        width: 50%;
+        margin: 30px auto;
+        border-bottom: 1px solid #ccc;
+    }
+
+    /* Service Container */
+    .div-first p {
+        text-align: center;
+        margin: 10px 0;
+        color: #555;
+    }
+
+    /* Service Cards */
+    .service-1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px; /* Khoảng cách giữa các thẻ */
+        margin: 30px 0;
+        padding: 0 20px;
+        max-width: 1200px; /* Giới hạn chiều rộng container để hiển thị 4 thẻ mỗi hàng */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .title {
+        background-color: #fff0f5;
+        border: 2px solid #ffc0cb;
+        border-radius: 20px;
+        padding: 15px;
+        width: calc(25% - 20px); /* Chiều rộng mỗi thẻ là 25% (1/4 container) trừ đi khoảng cách gap */
+        min-width: 250px; /* Chiều rộng tối thiểu để không bị co nhỏ quá */
+        min-height: 350px; /* Chiều cao tối thiểu để đồng đều */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .title:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        background: #ffe6ed;
+    }
+
+    .service-title {
+        color: #e91e63;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .service-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 10px;
+    }
+
+    .title ul {
+        padding-left: 15px;
+        font-size: 14px;
+        color: #444;
+        flex-grow: 1;
+    }
+
+    .title li {
+        margin-bottom: 8px;
+    }
+
+    /* Service Registration Link */
+    .sub-dv {
+        color: rgb(247, 82, 110);
+        margin: 40px 0;
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    .sub-dv a {
+        color: rgb(247, 82, 110);
+        text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .title {
+            width: calc(50% - 20px); /* 2 thẻ mỗi hàng trên màn hình nhỏ hơn */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .h1-center {
+            font-size: 35px;
+        }
+
+        .h2-first {
+            font-size: 30px;
+        }
+
+        .title {
+            width: 100%;
+            max-width: 300px; /* 1 thẻ mỗi hàng trên màn hình rất nhỏ */
+        }
+
+        .service-1 {
+            padding: 0 10px;
+        }
+    }
+
+    /* Additional Styling */
+    ul {
+        list-style-type: none;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+    }
+
+    /* Loading and Error Messages */
+    .loading, .error-message, .no-services {
+        text-align: center;
+        color: #e91e63;
+        font-size: 18px;
+        margin: 20px 0;
+    }
+</style>
+<body>
+<header>
+    <h2 class="h1-first">Miyazono Kaori</h2>
+    <nav>
+        <ul>
+            <li><a href="../home.html">Trang Chủ</a></li>
+            <li><a href="../pages/services.html">Dịch Vụ</a></li>
+            <li><a href="../pages/about.html">Giới Thiệu</a></li>
+            <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+            <li><a href="../pages/contact.html">Liên Hệ</a></li>
+            <li id="pay-ment"><a href="../pages/Payment.html">Thanh Toán</a></li>
+            <li id="logout-btn" style="display:none;"><a href="#" onclick="logout()">Đăng xuất</a></li>
+
+        </ul>
+    </nav>
+</header>
+
+<div class="anh-nen">
+    <h1 class="h1-center">Dịch Vụ Chăm Sóc Chuyên Sâu</h1>
+</div>
+
+<div class="div-first">
+    <h2 class="h2-first">Không gian chăm sóc sắc đẹp đẳng cấp, nơi chúng tôi mang đến <br> những dịch vụ tinh tế, giúp bạn tỏa sáng!</h2>
+    <p>💖 Với đội ngũ chuyên viên giàu kinh nghiệm và các liệu pháp chăm sóc tiên tiến, chúng tôi cam kết mang lại trải nghiệm thư giãn tuyệt vời cùng <br> những kết quả đáng kinh ngạc, giúp bạn luôn tự tin và rạng rỡ mỗi ngày.</p>
+</div>
+
+<div class="gach-ngang"></div>
+
+<section id="services-section">
+    <div class="service-1" id="services-container">
+        <!-- Services will be dynamically loaded here -->
+    </div>
+</section>
+
+<div class="sub-dv">
+    <p><b>🌟 Hãy đặt lịch ngay hôm nay để được tư vấn miễn phí & trải nghiệm dịch vụ tốt nhất! 🌟 [<a href="../pages/booking.html">tại đây</a>]</b></p>
+</div>
+
+<footer>
+    <p>&copy; Mọi thắc mắc hoặc khiếu nại của khách hàng tại Email: loclc8533@ut.edu.vn</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const servicesContainer = document.getElementById('services-container');
+
+        // Hiển thị nút đăng xuất nếu đã đăng nhập
+        const token = localStorage.getItem('token');
+        if (token) {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) logoutBtn.style.display = 'inline';
+        } else {
+            alert('Vui lòng đăng nhập để xem dịch vụ.');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const role = localStorage.getItem("role")
+        const pay = document.getElementById("pay-ment")
+        if(role === "ADMIN"){
+            pay.style.display ="inline"
+
+        }else {
+            pay.style.display ="none"
+        }
+        servicesContainer.innerHTML = '<div class="loading">Đang tải dịch vụ...</div>';
+
+        fetch("http://localhost:8080/api/services", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Không thể tải danh sách dịch vụ.');
+                return response.json();
+            })
+            .then(services => {
+                servicesContainer.innerHTML = '';
+                renderServices(services);
+            })
+            .catch(error => {
+                servicesContainer.innerHTML = '<div class="error-message">Không thể tải danh sách dịch vụ. Vui lòng thử lại sau.</div>';
+                console.error(error);
+            });
+
+        function renderServices(services) {
+            if (services.length === 0) {
+                servicesContainer.innerHTML = '<div class="no-services">Không có dịch vụ nào.</div>';
+                return;
+            }
+
+            services.forEach((service, index) => {
+                let descriptionPoints = service.description ? service.description.split('\n').filter(line => line.trim() !== '') : [];
+                if (descriptionPoints.length <= 1) {
+                    descriptionPoints = [service.description];
+                }
+
+                const listItemsHTML = descriptionPoints.map(point => `<li>${point}</li>`).join('');
+
+                // Nếu không có ảnh, dùng ảnh mặc định
+                const imageUrl = service.imageUrl || '../img/hinh-dat-lich.png';
+
+                const serviceArticle = document.createElement('article');
+                serviceArticle.classList.add('title');
+                serviceArticle.innerHTML = `
+            <img src="${imageUrl}" alt="Service Image" class="service-image">
+            <h3 class="service-title">${index + 1}. ${service.name}</h3>
+            <ul>${listItemsHTML}</ul>
+
+        `;
+                servicesContainer.appendChild(serviceArticle);
+            });
+        }
+
+    });
+
+    // Hàm xử lý đăng xuất
+    function logout() {
+        localStorage.removeItem("token");
+        alert("Bạn đã đăng xuất!");
+        window.location.href = "login.html";
+    }
+</script>
+</body>
+</html>

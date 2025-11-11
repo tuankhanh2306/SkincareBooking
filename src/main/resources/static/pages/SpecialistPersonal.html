@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare Booking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background-color: #f56f85;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Table */
+        .data-table {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #6c5ce7;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Tabs */
+        .tab {
+            display: none;
+        }
+
+        .tab-active {
+            display: block;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare Booking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background-color: #f56f85;
+            color: white;
+            padding: 20px 0;
+        }
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        .sidebar-menu ul {
+            list-style: none;
+        }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid white;
+        }
+        .sidebar-menu i {
+            margin-right: 10px;
+        }
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+        /* Table */
+        .data-table {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+        /* Form */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 50%;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        /* Tabs */
+        .tab {
+            display: none;
+        }
+        .tab-active {
+            display: block;
+        }
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* Appointment Cards */
+        .appointment-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .appointment-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .appointment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .appointment-card .card-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .appointment-card .card-header h3 {
+            color: #f56f85;
+            margin: 0;
+        }
+
+        .appointment-card .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .appointment-card .card-body {
+            margin-bottom: 15px;
+        }
+
+        .appointment-card .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .appointment-card .info-label {
+            font-weight: bold;
+            width: 100px;
+            color: #666;
+        }
+
+        .appointment-card .info-value {
+            flex: 1;
+        }
+
+        .appointment-card .card-footer {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            text-align: right;
+        }
+
+        .no-appointments {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Skincare Booking</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="#" class="active" data-tab="users-tab"><i class="fas fa-calendar-check"></i> Confirmed Appointments</a></li>
+                <li><a href="#" data-tab="appointments-tab"><i class="fas fa-calendar-alt"></i> All Appointments</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Specialist Appointment</h1>
+            <button id="logout-btn" class="btn btn-danger">Logout</button>
+        </div>
+        <div id="users-tab" class="tab tab-active">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Confirmed Appointments</h2>
+                </div>
+                <div class="appointment-cards" id="confirmed-appointments-container">
+                    <!-- Confirmed appointment cards will be inserted here -->
+                    <div class="no-appointments">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading confirmed appointments...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appointments Tab -->
+        <div id="appointments-tab" class="tab">
+            <div class="data-table">
+                <div class="table-header">
+                    <h2>Appointments</h2>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Specialist</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>CreateAt</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="appointments-list">
+                    <!-- Appointment data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Appointment Modal -->
+<div id="appointment-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="appointment-modal-title">Create Appointment</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="appointment-form">
+                <input type="hidden" id="appointment-id">
+                <div class="form-group">
+                    <label for="customer">Customer:</label>
+                    <select id="customer" class="form-control" required>
+                        <!-- Customer options will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="service">Service:</label>
+                    <select id="service" class="form-control" required>
+                        <!-- Service options will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="specialist">Specialist:</label>
+                    <select id="specialist" class="form-control" required>
+                        <!-- Specialist options will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" class="form-control" required>
+                        <option value="PENDING">Pending</option>
+                        <option value="CONFIRMED">Confirmed</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="CANCELLED">Cancelled</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger close-modal">Cancel</button>
+            <button class="btn btn-primary" id="save-appointment">Save</button>
+        </div>
+    </div>
+</div>
+
+<<script>
+    const API_BASE_URL = 'http://localhost:8080/api';
+    let authToken = localStorage.getItem('token');
+
+    // Tab navigation
+    document.querySelectorAll('.sidebar-menu a').forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Remove active class from all tabs
+            document.querySelectorAll('.sidebar-menu a').forEach(t => {
+                t.classList.remove('active');
+            });
+            // Add active class to clicked tab
+            this.classList.add('active');
+            // Hide all tab contents
+            document.querySelectorAll('.tab').forEach(content => {
+                content.classList.remove('tab-active');
+            });
+            // Show the tab content related to clicked tab
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('tab-active');
+        });
+    });
+
+    function showSuccess(message) {
+        alert(message); // hoặc dùng toast, modal tùy bạn
+    }
+
+    function showError(message) {
+        alert(message);
+    }
+
+    // Quản lý phương thức
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Đóng phương thức khi nhấp vào nút X hoặc Hủy
+    document.querySelectorAll('.close, .close-modal').forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            modal.style.display = 'none';
+        });
+    });
+
+    // đóng phương thức khi nhấp vào bên ngoài
+    window.addEventListener('click', function(event) {
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    //hamf fetch chung
+    async function fetchData(url, options = {}) {
+        const defaultHeaders = {
+            Authorization: `Bearer ${authToken}`,
+            'Content-Type': 'application/json',
+        };
+
+        // Hợp nhất headers mặc định và headers tuỳ chọn
+        options.headers = {
+            ...defaultHeaders,
+            ...options.headers,
+        };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}${url}`, options);
+
+            if (!response.ok) {
+                const errorBody = await response.text(); // Đọc nội dung lỗi nếu có
+                throw new Error(`HTTP error! Status: ${response.status}. Message: ${errorBody}`);
+            }
+
+            // Nếu không có nội dung trả về (204 No Content)
+            if (response.status === 204) return null;
+
+            return await response.json();
+        } catch (error) {
+            console.error('Fetch error:', error.message);
+            return null;
+        }
+    }
+
+
+    // document.getElementById('add-appointment-btn').addEventListener('click', async function() {
+    //     document.getElementById('appointment-form').reset();
+    //     document.getElementById('appointment-id').value = '';
+    //     document.getElementById('appointment-modal-title').textContent = 'Create Appointment';
+    //     // Load customers, services, and specialists for dropdowns
+    //     await loadDropdownOptions();
+    //     openModal('appointment-modal');
+    // });
+
+    // Fixed Save Appointment Function
+    document.getElementById('save-appointment').addEventListener('click', async function () {
+        try {
+            const appointmentId = document.getElementById('appointment-id').value;
+            const customerId = document.getElementById('customer').value;
+            const serviceId = document.getElementById('service').value;
+            const specialistId = document.getElementById('specialist').value;
+            const appointmentDate = document.getElementById('date').value;
+            const appointmentTime = document.getElementById('time').value;
+            const status = document.getElementById('status').value;
+
+            if (!customerId || !serviceId || !specialistId || !appointmentDate || !appointmentTime || !status) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const appointmentDateTime = `${appointmentDate}T${appointmentTime}:00`;
+
+            // Create the appointment data object
+            const appointmentData = {
+                customerId: parseInt(customerId),
+                serviceId: parseInt(serviceId),
+                specialistId: parseInt(specialistId),
+                appointmentDate: appointmentDateTime,
+                status: status,
+            };
+
+            // Add createdAt only for new appointments
+            if (!appointmentId) {
+                appointmentData.createdAt = new Date().toISOString();
+            }
+
+            let response;
+            if (!appointmentId) {
+                // Create new appointment
+                response = await fetch(`${API_BASE_URL}/appointments`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(`Error creating appointment: ${response.status} - ${errorData}`);
+                }
+                showSuccess('Appointment created successfully');
+            } else {
+                // For updates, get the existing data first
+                const existingResponse = await fetch(`${API_BASE_URL}/appointments/${appointmentId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!existingResponse.ok) {
+                    throw new Error("Failed to fetch existing appointment data");
+                }
+                const existingData = await existingResponse.json();
+
+                // Combine existing data with new data for the update
+                const updateData = {
+                    ...appointmentData,
+                    id: parseInt(appointmentId),
+                    createdAt: existingData.createdAt // Keep the original createdAt
+                };
+
+                response = await fetch(`${API_BASE_URL}/appointments/${appointmentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                });
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(`Error updating appointment: ${response.status} - ${errorData}`);
+                }
+                showSuccess('Appointment updated successfully');
+            }
+            closeModal('appointment-modal');
+            await loadAppointments();
+            await loadConfirmedAppointments(); // Also reload the confirmed appointments
+        } catch (error) {
+            console.error('Error saving appointment:', error);
+            showError(`Failed to save appointment: ${error.message}`);
+        }
+    });
+
+    // New function to load confirmed appointments as cards
+    async function loadConfirmedAppointments() {
+        const container = document.getElementById('confirmed-appointments-container');
+        container.innerHTML = `
+            <div class="no-appointments">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Loading confirmed appointments...</p>
+            </div>
+        `;
+
+        try {
+            // Fetch all appointments
+            const appointments = await fetchData('/appointments');
+
+            // Filter only confirmed appointments
+            const confirmedAppointments = appointments.filter(appointment =>
+                appointment.status === 'CONFIRMED'
+            );
+
+            if (confirmedAppointments && confirmedAppointments.length > 0) {
+                container.innerHTML = '';
+
+                // Sort appointments by date (newest first)
+                confirmedAppointments.sort((a, b) =>
+                    new Date(b.appointmentDate) - new Date(a.appointmentDate)
+                );
+
+                confirmedAppointments.forEach(appointment => {
+                    let formattedDate = 'N/A';
+                    let formattedTime = 'N/A';
+
+                    if (appointment.appointmentDate) {
+                        const dateObj = new Date(appointment.appointmentDate);
+                        formattedDate = dateObj.toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        formattedTime = dateObj.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+
+                    const createdAtFormatted = appointment.createdAt
+                        ? new Date(appointment.createdAt).toLocaleString()
+                        : 'N/A';
+
+                    container.innerHTML += `
+                        <div class="appointment-card">
+                            <div class="card-header">
+                                <h3>Appointment #${appointment.id}</h3>
+                                <span class="status-badge status-confirmed">${appointment.status}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-row">
+                                    <span class="info-label">Customer:</span>
+                                    <span class="info-value">${appointment.customerName || 'N/A'}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Service:</span>
+                                    <span class="info-value">${appointment.serviceName || 'N/A'}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Specialist:</span>
+                                    <span class="info-value">${appointment.specialistName || 'N/A'}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Date:</span>
+                                    <span class="info-value">${formattedDate}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Time:</span>
+                                    <span class="info-value">${formattedTime}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Created:</span>
+                                    <span class="info-value">${createdAtFormatted}</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-success" onclick="markAsCompleted(${appointment.id})">
+                                    <i class="fas fa-check"></i> Mark as Completed
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                container.innerHTML = `
+                    <div class="no-appointments">
+                        <i class="fas fa-calendar-times fa-3x" style="color: #f56f85; margin-bottom: 15px;"></i>
+                        <h3>No confirmed appointments found</h3>
+                        <p>When appointments are confirmed, they will appear here.</p>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Error loading confirmed appointments:', error);
+            container.innerHTML = `
+                <div class="no-appointments">
+                    <i class="fas fa-exclamation-triangle fa-3x" style="color: #e74c3c; margin-bottom: 15px;"></i>
+                    <h3>Error loading appointments</h3>
+                    <p>There was a problem loading the confirmed appointments. Please try again later.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Function to mark an appointment as completed
+
+
+    async function loadAppointments() {
+        const appointmentsList = document.getElementById('appointments-list');
+        appointmentsList.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading appointments...</td></tr>';
+        try {
+            const appointments = await fetchData('/appointments');
+            if (appointments && appointments.length > 0) {
+                appointmentsList.innerHTML = '';
+                appointments.forEach(appointment => {
+                    let formattedDate = 'N/A';
+                    let formattedTime = 'N/A';
+                    if (appointment.appointmentDate) {
+                        const dateObj = new Date(appointment.appointmentDate);
+                        formattedDate = dateObj.toLocaleDateString();
+                        formattedTime = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+                    const createdAtFormatted = appointment.createdAt
+                        ? new Date(appointment.createdAt).toLocaleString()
+                        : 'N/A';
+
+                    // Changed the action buttons based on appointment status
+                    let actionButtons = '';
+                    if (appointment.status === 'PENDING') {
+                        actionButtons = `
+                        <button class="btn btn-success btn-sm" onclick="confirmAppointment(${appointment.id})">Confirm</button>
+                        <button class="btn btn-danger btn-sm" onclick="cancelAppointment(${appointment.id})">Cancel</button>
+                    `;
+                    } else if (appointment.status === 'CONFIRMED') {
+                        actionButtons = `
+                        <button class="btn btn-danger btn-sm" onclick="cancelAppointment(${appointment.id})">Cancel</button>
+                    `;
+                    } else {
+                        actionButtons = `
+                        <button class="btn btn-secondary btn-sm" disabled>${appointment.status}</button>
+                    `;
+                    }
+                    appointmentsList.innerHTML += `
+                <tr>
+                    <td>${appointment.id}</td>
+                    <td>${appointment.customerName || 'N/A'}</td>
+                    <td>${appointment.serviceName || 'N/A'}</td>
+                    <td>${appointment.specialistName || 'N/A'}</td>
+                    <td>${formattedDate}</td>
+                    <td>${formattedTime}</td>
+                    <td>${appointment.status || 'N/A'}</td>
+                    <td>${createdAtFormatted}</td>
+                    <td class="actions">
+                        ${actionButtons}
+                    </td>
+                </tr>
+                `;
+                });
+            } else {
+                appointmentsList.innerHTML = '<tr><td colspan="9" style="text-align:center;">No appointments found</td></tr>';
+            }
+        } catch (error) {
+            console.error('Error loading appointments:', error);
+            appointmentsList.innerHTML = '<tr><td colspan="9" style="text-align:center;">Error loading appointments</td></tr>';
+            showError('Failed to load appointments');
+        }
+    }
+
+    // Function to confirm an appointment
+    async function confirmAppointment(appointmentId) {
+        if (confirm('Are you sure you want to confirm this appointment?')) {
+            try {
+                // First, get the current appointment data
+                // Send the update request
+                const response = await fetch(`${API_BASE_URL}/appointments/${appointmentId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({status: 'CONFIRMED'})
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to confirm appointment: ${response.status}`);
+                }
+                showSuccess('Appointment confirmed successfully');
+                await loadAppointments();
+                await loadConfirmedAppointments(); // Also reload the confirmed appointments
+            } catch (error) {
+                console.error('Error confirming appointment:', error);
+                showError('Failed to confirm appointment');
+            }
+        }
+    }
+
+    // Function to cancel an appointment
+    async function cancelAppointment(appointmentId) {
+        if (confirm('Are you sure you want to cancel this appointment?')) {
+            try {
+                // Send the update request
+                const response = await fetch(`${API_BASE_URL}/appointments/${appointmentId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({status: 'CANCELLED'})
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to cancel appointment: ${response.status}`);
+                }
+                showSuccess('Appointment cancelled successfully');
+                await loadAppointments();
+                await loadConfirmedAppointments(); // Also reload the confirmed appointments
+            } catch (error) {
+                console.error('Error cancelling appointment:', error);
+                showError('Failed to cancel appointment');
+            }
+        }
+    }
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if user is logged in
+        if (authToken === "CUSTOMER") {
+            showError("Bạn không có quyền hạn truy cập trang này !")
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Load initial data
+        loadConfirmedAppointments();
+        loadAppointments();
+
+        // Set up logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        });
+
+        // Set up event listeners for tab switching to load data
+        document.querySelector('[data-tab="appointments-tab"]').addEventListener('click', loadAppointments);
+        document.querySelector('[data-tab="users-tab"]').addEventListener('click', loadConfirmedAppointments);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt Lịch</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Đảm bảo nội dung chính chiếm phần lớn để footer luôn ở cuối */
+    main {
+      flex-grow: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 80px;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: rgb(245, 111, 133);
+      text-align: center;
+      padding: 20px;
+      opacity: 1;
+      width: 100%;
+    }
+
+    .h1-first{
+      color: white;
+      font-size: 40px;
+    }
+
+    nav ul li::before {
+      content: none;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: #e74c3c;
+      border-radius: 5px;
+    }
+
+    /* Banner */
+    .banner {
+      width: 90%;
+      max-width: 800px;
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .banner img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+
+    /* Form */
+    form {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #e74c3c;
+    }
+
+    button {
+      background-color: rgba(231, 76, 60, 0.9);
+      color: white;
+      border: 1px solid rgba(231, 76, 60, 0.5);
+      padding: 10px 20px;
+      margin-top: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: rgba(192, 57, 43, 0.7);
+    }
+
+    /* Section */
+    section {
+      width: 90%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: left;
+      margin: 20px auto;
+    }
+
+    section h1 {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    section h2 {
+      color: #e74c3c;
+      font-size: 20px;
+      margin-top: 15px;
+    }
+
+    section article {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 10px 15px;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+    }
+
+    section ul {
+      padding-left: 20px;
+    }
+
+    section ul li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    section b {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px; /* Thêm khoảng cách để không đẩy nút xuống quá xa */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical; /* Chỉ cho phép kéo dọc */
+    }
+
+
+    /*Footer*/
+
+    footer {
+      background-color: rgb(245, 111, 133);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px; /* Thay thế các thẻ <br> */
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+<header>
+  <h1 class="h1-first">Miyazono Kaori</h1>
+  <nav>
+    <ul>
+      <li><a href="../home.html">Trang Chủ</a></li>
+      <li><a href="../pages/services.html">Dịch Vụ</a></li>
+      <li><a href="../pages/about.html">Giới Thiệu</a></li>
+      <li><a href="../pages/therapists.html">Chuyên Viên</a></li>
+      <li><a href="../pages/contact.html">Liên Hệ</a></li>
+      <li id="pay-ment"><a href="../pages/Payment.html">Thanh Toán</a></li>
+      <li id="logout-btn"><a href="#" onclick="logout()">Đăng xuất</a></li>
+
+    </ul>
+  </nav>
+</header>
+
+<br> <br> <br> <br> <br>
+
+<section>
+  <h1>Chuyên Gia Da Liễu Hàng Đầu – Đảm Bảo Uy Tín & Hiệu Quả</h1>
+  <h2>1. Bác Sĩ: Trác Phàm</h2>
+  <article>
+    <ul>
+      <li>Với hơn 15 năm kinh nghiệm trong lĩnh vực da liễu thẩm mỹ. Chuyên gia trong điều trị các vấn đề về da như mụn, nám, tàn nhang, lão hóa da.
+        Đã thực hiện thành công hàng ngàn ca điều trị, mang lại làn da khỏe đẹp cho khách hàng.</li>
+      <li>Được đồng nghiệp và khách hàng đánh giá cao về chuyên môn và sự tận tâm. Thường xuyên tham gia các hội thảo, khóa đào
+        tạo chuyên sâu về da liễu trong và ngoài nước. Là thành viên của các hiệp hội da liễu uy tín.</li>
+      <li>Tốt nghiệp bác sĩ chuyên khoa Da liễu tại Đại học Y Dược TP. Hồ Chí Minh. Sở hữu nhiều chứng chỉ chuyên môn về các
+        kỹ thuật thẩm mỹ da liễu tiên tiến.</li>
+    </ul>
+  </article>
+  <h2>2. Bác Sĩ: Hàn Vũ Sinh Ca</h2>
+  <article>
+    <ul>
+      <li> Với Hơn 20 năm kinh nghiệm tư vấn chăm sóc da chuyên sâu.
+        Hiểu biết sâu rộng về các loại da và các vấn đề về da thường gặp.
+        Tư vấn các liệu trình chăm sóc da phù hợp với từng khách hàng.</li>
+      <li>Luôn cập nhật kiến thức mới nhất về các sản phẩm và công nghệ chăm sóc da.
+        Được khách hàng tin tưởng và đánh giá cao về sự nhiệt tình và chu đáo.
+        Đã có nhiều năm làm việc tại các trung tâm chăm sóc da lớn.</li>
+      <li>Chứng chỉ chuyên viên tư vấn chăm sóc da chuyên nghiệp.
+        Chứng chỉ về các loại mỹ phẩm chăm sóc da.</li>
+    </ul>
+  </article>
+  <h2>3. Bác Sĩ: Dịch Phàm</h2>
+  <article>
+    <ul>
+      <li> Trên 20 năm kinh nghiệm trong lĩnh vực da liễu.
+        Chuyên điều trị các bệnh về da liễu, và có kinh nghiệm trong việc sử dụng laser trong việc điều trị các bệnh về da.
+        Đã có nhiều bài nghiên cứu về da liễu được đăng trên các tạp chí y khoa.</li>
+      <li>Là một trong những bác sĩ đầu ngành về da liễu.
+        Được nhiều người nổi tiếng tin tưởng và sử dụng các dịch vụ chăm sóc da.
+        Là một trong những bác sĩ có nhiều năm kinh nghiệm trong việc giảng dạy cho các bác sĩ trẻ.</li>
+      <li>Tốt nghiệp bác sĩ chuyên khoa da liễu tại Đại học Y Hà Nội.
+        Có bằng Tiến sĩ về các bệnh da liễu.</li>
+    </ul>
+  </article>
+  <b>🔹 Hãy đặt lịch ngay hôm nay để được tư vấn miễn phí và trải nghiệm dịch vụ chăm sóc da chuyên nghiệp!</b>
+</section>
+
+
+
+
+
+
+
+<br> <br> <br> <br> <br> <br>
+<footer>
+  <p>&copy; Mọi thắc mắc hoặc khiếu nại của khách hàng tại Email: loclc8533@ut.edu.vn</p>
+</footer>
+<script>
+  function logout() {
+    localStorage.removeItem("token");
+    alert("Bạn đã đăng xuất!");
+    window.location.href = "login.html";
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("token");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    if (token) {
+      logoutBtn.style.display = "inline"; // hoặc "block" tùy layout
+    } else {
+      logoutBtn.style.display = "none";
+    }
+
+    const role = localStorage.getItem("role")
+    const pay = document.getElementById("pay-ment")
+    if(role === "ADMIN"){
+      pay.style.display ="inline"
+
+    }else {
+      pay.style.display ="none"
+    }
+  });
+</script>
+</body>
+</html>

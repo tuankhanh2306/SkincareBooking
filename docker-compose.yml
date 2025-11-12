@@ -9,13 +9,13 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/dermatology_center
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=1234
+      - DATABASE_URL=jdbc:postgresql://dpg-d4a1pmjipnbc739c0sk0-a:5432/skincare_db_data
+      - DATABASE_USERNAME=skincare_db_user
+      - DATABASE_PASSWORD=DEFvzYrHy32kmPZwdktPX4KPWseTrIkG
       - JWT_SECRET=ThisIsMySuperSecretKeyForJWT1234567890a
       - JWT_EXPIRATION=86400000
-      - SPRING_AI_OPENAI_API_KEY=your_openai_api_key
-      - DEBUG=false
+      - OPENAI_API_KEY=your_openai_api_key
+      - PORT=8080
     depends_on:
       - postgres-db
 
@@ -24,11 +24,11 @@ services:
     container_name: postgres-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: dermatology_center
+      POSTGRES_USER: skincare_db_user
+      POSTGRES_PASSWORD: DEFvzYrHy32kmPZwdktPX4KPWseTrIkG
+      POSTGRES_DB: skincare_db_data
     ports:
-      - "5432:5432"  # ✅ sửa lại cho khớp với URL trên
+      - "5432:5432"
     volumes:
       - postgres-skincare-data:/var/lib/postgresql/data
 

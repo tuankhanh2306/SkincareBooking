@@ -1,40 +1,36 @@
+version: '3.9'
+
 services:
-  # 1. Dịch vụ ứng dụng Spring Boot
   app:
-    # LỖI CŨ: build: .. (sai, vì nó tìm ở thư mục cha)
-    # SỬA LẠI: build: . (đúng, vì Dockerfile ở ngay thư mục này)
     build: .
-
-    # LỖI CŨ: container_name: Dockerfile (rất dễ nhầm lẫn)
-    # SỬA LẠI: đặt một tên có ý nghĩa cho container
     container_name: skincare-app
-
     restart: on-failure
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/dermatology_center
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_PROFILES_ACTIVE=prod
+      - DATABASE_URL=jdbc:postgresql://postgres-db:5432/dermatology_center
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=1234
       - JWT_SECRET=ThisIsMySuperSecretKeyForJWT1234567890a
       - JWT_EXPIRATION=86400000
       - SPRING_AI_OPENAI_API_KEY=your_openai_api_key
-      - DEBUG=true
+      - DEBUG=false
     depends_on:
-      - mysql-db
+      - postgres-db
 
-  # 2. Dịch vụ cơ sở dữ liệu MySQL (Phần này đã đúng)
-  mysql-db:
-    image: mysql:8.0
-    container_name: mysql-db
+  postgres-db:
+    image: postgres:16
+    container_name: postgres-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: dermatology_center
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: dermatology_center
     ports:
-      - "3307:3306"
+      - "5433:5432"
     volumes:
-      - mysql-skincare-data:/var/lib/mysql
+      - postgres-skincare-data:/var/lib/postgresql/data
 
 volumes:
-  mysql-skincare-data:
+  postgres-skincare-data:

@@ -28,71 +28,29 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class Security {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserDetailsService UserDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    public Security(JwtAuthenticationFilter jwtAuthenticationFilter, CustomUserDetailsService customUserDetailsService) {
+    public Security(JwtAuthenticationFilter jwtAuthenticationFilter,
+                          UserDetailsService userDetailsService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.UserDetailsService = customUserDetailsService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        //Authentication
-                        .requestMatchers("/api/auth/**").permitAll()  // Cho phép truy cập API auth
+                        // Public URLs
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
 
-                        //USERS
-                        .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/users/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
-
-
-                        //SERVICES
-                        .requestMatchers(HttpMethod.POST, "/api/services").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/services").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.PUT, "/api/services").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/services").hasRole("ADMIN")
-
-                        // Appointment
-                        .requestMatchers(HttpMethod.POST, "/api/appointments").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.GET, "/api/appointments").hasAnyRole("ADMIN", "CUSTOMER", "SPECIALIST")
-                        .requestMatchers(HttpMethod.GET, "/api/appointments/customer/{customerId}").hasAnyRole("ADMIN", "CUSTOMER", "SPECIALIST")
-                        .requestMatchers(HttpMethod.GET, "/api/appointments/specialist/{specialistId}").hasAnyRole("ADMIN", "SPECIALIST")
-                        .requestMatchers(HttpMethod.GET, "/api/appointments/{appointmentId}").hasAnyRole("ADMIN", "CUSTOMER", "SPECIALIST")
-                        .requestMatchers(HttpMethod.PUT, "/api/appointments/{appointmentId}").hasAnyRole("ADMIN", "SPECIALIST")
-                        .requestMatchers(HttpMethod.PUT, "/api/appointments/{appointmentId}/status").hasAnyRole("ADMIN", "SPECIALIST")
-                        .requestMatchers(HttpMethod.PUT, "/api/appointments/{appointmentId}/complete").hasAnyRole("ADMIN", "SPECIALIST")
-                        .requestMatchers(HttpMethod.DELETE, "/api/appointments/{appointmentId}").hasAnyRole("ADMIN", "SPECIALIST")
-
-                        //Specialist
-                        .requestMatchers(HttpMethod.POST, "/api/specialists").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/specialists").hasAnyRole("ADMIN", "SPECIALIST","CUSTOMER")
-                        .requestMatchers(HttpMethod.PUT, "/api/specialists").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/specialists").hasRole("ADMIN")
-
-                        //Payment
-                        .requestMatchers("/api/payment/**").hasRole("ADMIN")
-
-                        //Feedback
-                        .requestMatchers(HttpMethod.POST, "/api/feedback").hasRole("CUSTOMER")
-                        .requestMatchers(HttpMethod.GET, "/api/feedback").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.GET, "/api/feedback/specialist/{specialistId}").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.GET, "/api/feedback/specialist/{specialistId}/average-rating0").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/feedback/{feedbackId}").hasRole("ADMIN")
-
-                        //Quiz
-                        .requestMatchers(HttpMethod.POST, "/api/quiz-question").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/quiz-question").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/quiz-question/{id}").hasRole("ADMIN")
-
-                        .requestMatchers("/error").permitAll()  // Cho phép truy cập trang lỗi
-                        .anyRequest().authenticated()  // Yêu cầu xác thực cho các request khác
+                        // Example API protection
+                        .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyAuthority("ADMIN", "CUSTOMER")
+                        .requestMatchers("/api/users/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/services/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -105,19 +63,18 @@ public class Security {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-
-
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(UserDetailsService);
+        provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }

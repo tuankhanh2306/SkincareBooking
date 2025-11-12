@@ -27,7 +27,9 @@ public class Payment {
     @JoinColumn(name = "appointment_id", nullable = false)
     private Appointment appointmentEntity;
 
+
     @Column(nullable = false)
+
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)

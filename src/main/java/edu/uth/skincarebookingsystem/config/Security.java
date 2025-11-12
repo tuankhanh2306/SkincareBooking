@@ -37,18 +37,14 @@ public class Security {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Public HTML pages
-                        .requestMatchers("/", "/pages/login.html", "/pages/register.html", "/favicon.ico").permitAll()
-                        // Authentication APIs
+                        // Public URLs
+                        .requestMatchers("/", "/login.html", "/register.html", "/favicon.ico").permitAll()
+                        .requestMatchers("/pages/**").permitAll()  // <-- thêm dòng này
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll() // nếu có tài nguyên
                         .requestMatchers("/api/auth/**").permitAll()
-                        // Error page
-                        .requestMatchers("/error").permitAll()
-                        // Example protected APIs
-                        .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyAuthority("ADMIN", "CUSTOMER")
-                        .requestMatchers("/api/users/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/services/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
+
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

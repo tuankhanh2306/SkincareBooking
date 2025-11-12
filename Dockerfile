@@ -1,17 +1,19 @@
-# Sử dụng một ảnh Java (image) làm nền tảng (chọn phiên bản 17 hoặc 21)
-FROM openjdk:21-slim
+# Giai đoạn 1: Build dự án bằng Maven
+FROM maven:3.8.5-openjdk-17 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Đặt thư mục làm việc bên trong container
+# Giai đoạn 2: Chạy ứng dụng
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 
-# Sao chép tệp .jar đã được build từ máy của bạn vào container
-# Dòng này đã ĐÚNG vì bạn đã build tệp .jar ở bước trước
-COPY target/skincare-booking-system-0.0.1-SNAPSHOT.jar app.jar
-
-# Cho Docker biết rằng ứng dụng của bạn sẽ chạy trên cổng 8080
+# Lấy PORT từ biến môi trường của Render
+ENV PORT 8080
 EXPOSE 8080
 
-# LỖI CŨ: ENTRYPOINT ["java", "-jar", "/app.jar"] (sai đường dẫn)
-# Vì WORKDIR là /app, tệp app.jar sẽ nằm ở /app/app.jar
-# SỬA LẠI: Dùng đường dẫn tương đối "app.jar" là đủ
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Copy file .jar từ giai đoạn build
+COPY --from=build /app/target/*.jar app.jar
+
+# Lệnh khởi động
+ENTRYPOINT ["java","-jar","app.jar"]

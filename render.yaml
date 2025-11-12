@@ -1,10 +1,13 @@
 services:
   - type: web
     name: skincare-booking-system
-    runtime: java
     plan: free
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/*.jar
+    # Thay 'java' bằng 'docker'
+    runtime: docker
+
+    # Bạn không cần buildCommand hay startCommand
+    # Render sẽ tự động build từ Dockerfile
+
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
@@ -22,3 +25,8 @@ services:
         sync: false
       - key: OPENAI_API_KEY
         sync: false
+
+      # Cung cấp PORT cho file Dockerfile
+      # Spring Boot của bạn đã đọc cổng này (server.port=${PORT:8080})
+      - key: PORT
+        value: 8080

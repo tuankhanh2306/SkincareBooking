@@ -28,7 +28,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: dermatology_center
     ports:
-      - "5433:5432"
+      - "5432:5432"  # ✅ sửa lại cho khớp với URL trên
     volumes:
       - postgres-skincare-data:/var/lib/postgresql/data
 

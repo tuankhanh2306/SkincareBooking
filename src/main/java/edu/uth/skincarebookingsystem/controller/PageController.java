@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-    @GetMapping({"/login", "/"})
+    @GetMapping("/login")
     public String loginPage() {
-        // Trả về đường dẫn file HTML trong static/pages
-        return "pages/login.html";
+        return "pages/login"; // KHÔNG cần .html
     }
 
     @GetMapping("/register")
     public String registerPage() {
-        return "pages/register.html";
+        return "pages/register"; // KHÔNG cần .html
     }
+
 }

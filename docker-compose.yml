@@ -8,19 +8,25 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - DATABASE_URL=jdbc:postgresql://dpg-d4a1pmjipnbc739c0sk0-a:5432/skincare_db_data
-      - DATABASE_USERNAME=skincare_db_user
-      - DATABASE_PASSWORD=DEFvzYrHy32kmPZwdktPX4KPWseTrIkG
-      - JWT_SECRET=ThisIsMySuperSecretKeyForJWT1234567890a
-      - JWT_EXPIRATION=86400000
-      - OPENAI_API_KEY=your_openai_api_key
-      - PORT=8080
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_URL: jdbc:postgresql://postgres-db:5432/skincare_db_data
+      DATABASE_USERNAME: skincare_db_user
+      DATABASE_PASSWORD: DEFvzYrHy32kmPZwdktPX4KPWseTrIkG
+      JWT_SECRET: ThisIsMySuperSecretKeyForJWT1234567890a
+      JWT_EXPIRATION: 86400000
+      SPRING_AI_OPENAI_API_KEY: your_openai_api_key
+      PORT: 8080
     depends_on:
       - postgres-db
+    # optional: để log gọn gàng hơn
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   postgres-db:
-    image: postgres:16
+    image: postgres:17
     container_name: postgres-db
     restart: unless-stopped
     environment:

@@ -13,7 +13,8 @@ RUN mvn clean package -DskipTests
 
 # ----- GIAI ĐOẠN 2: RUN -----
 # Sử dụng một image Java 17 nhỏ (slim) để chạy
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
+
 
 # Đặt thư mục làm việc
 WORKDIR /app

@@ -1,26 +1,22 @@
 package edu.uth.skincarebookingsystem.config;
 
 import edu.uth.skincarebookingsystem.service.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +27,7 @@ public class Security {
     private final UserDetailsService userDetailsService;
 
     public Security(JwtAuthenticationFilter jwtAuthenticationFilter,
-                          UserDetailsService userDetailsService) {
+                    CustomUserDetailsService userDetailsService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
     }
@@ -41,12 +37,13 @@ public class Security {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Public URLs
-                        .requestMatchers("/", "/login.html", "/register.html", "/favicon.ico").permitAll()
+                        // Public HTML pages
+                        .requestMatchers("/", "/pages/login.html", "/pages/register.html", "/favicon.ico").permitAll()
+                        // Authentication APIs
                         .requestMatchers("/api/auth/**").permitAll()
+                        // Error page
                         .requestMatchers("/error").permitAll()
-
-                        // Example API protection
+                        // Example protected APIs
                         .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyAuthority("ADMIN", "CUSTOMER")
                         .requestMatchers("/api/users/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/services/**").hasAuthority("ADMIN")

@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-
-    @GetMapping("/")
-    public String home() {
-        return "login.html"; // trả về file login.html trong /static
+    @GetMapping("/login")
+    public String login() {
+        return "pages/login.html"; // trỏ tới file trong static/pages
     }
 }
+

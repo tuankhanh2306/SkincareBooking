@@ -11,4 +11,5 @@ public class HomeController {
         // Chuyển hướng về file html mong muốn
         return "forward:/pages/login.html";
     }
+
 }

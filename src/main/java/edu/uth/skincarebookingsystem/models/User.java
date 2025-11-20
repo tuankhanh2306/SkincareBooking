@@ -50,11 +50,16 @@ public class User implements UserDetails {
 
     // --- CÁC PHƯƠNG THỨC CỦA USERDETAILS (BẮT BUỘC PHẢI CÓ) ---
 
+    // Trong file User.java (phải implements UserDetails)
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 2. QUAN TRỌNG NHẤT: Thêm tiền tố "ROLE_" vào trước tên role
-        // Nếu DB lưu "ADMIN", Spring Security cần "ROLE_ADMIN"
+        // SAI: return List.of(new SimpleGrantedAuthority(role.name()));
+        // -> Kết quả: "ADMIN" (Spring Security sẽ từ chối 403)
+
+        // ĐÚNG: Phải nối thêm chuỗi "ROLE_"
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        // -> Kết quả: "ROLE_ADMIN" (Spring Security chấp nhận)
     }
 
     @Override

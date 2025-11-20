@@ -39,17 +39,18 @@ public class Security {
         http
                 .cors(withDefaults()) // <-- ĐÚNG: Đặt ở đây, ngay sau 'http'
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth // <-- Bắt đầu chuỗi authorize
-
-                        .requestMatchers("/", "/pages/login.html", "/pages/register.html", "/favicon.ico").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/pages/**", "/favicon.ico", "/css/**", "/js/**", "/images/**").permitAll() // Gom gọn lại
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyAuthority("ADMIN", "CUSTOMER")
-                        .requestMatchers("/api/users/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/services/**").hasAuthority("ADMIN")
+
+                        // Dùng hasAnyRole và hasRole thay vì hasAuthority
+                        .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("ADMIN", "CUSTOMER")
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .requestMatchers("/api/services/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
-                ) // <-- Kết thúc chuỗi authorize
+                )// <-- Kết thúc chuỗi authorize
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

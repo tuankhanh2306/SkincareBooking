@@ -18,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -35,21 +37,19 @@ public class Security {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(withDefaults()) // <-- ĐÚNG: Đặt ở đây, ngay sau 'http'
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        // Public HTML pages
+                .authorizeHttpRequests(auth -> auth // <-- Bắt đầu chuỗi authorize
+
                         .requestMatchers("/", "/pages/login.html", "/pages/register.html", "/favicon.ico").permitAll()
-                        // Authentication APIs
                         .requestMatchers("/api/auth/**").permitAll()
-                        // Error page
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        // Example protected APIs
                         .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyAuthority("ADMIN", "CUSTOMER")
                         .requestMatchers("/api/users/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/services/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
-                )
+                ) // <-- Kết thúc chuỗi authorize
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

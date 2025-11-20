@@ -21,10 +21,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtUtils {
-    // Khóa bí mật để ký token (nên lưu trong application.properties trong thực tế)
 
     private String secretKey;
-
     private long expiration;
 
     @Autowired
@@ -35,34 +33,34 @@ public class JwtUtils {
         this.expiration = expiration;
     }
 
-    // Tạo Key từ secret string
     private Key getSigningKey() {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-        if (keyBytes.length < 32) { // 32 bytes = 256 bits
+        if (keyBytes.length < 32) {
             throw new JwtException("Secret key length must be at least 256 bits");
         }
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // 👉 Method 1: generate token từ email và role
+    // Tạo token từ email và role string (giữ nguyên logic này)
     public String generateToken(String email, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         return createToken(claims, email);
     }
 
-    // 👉 Method 2: generate token từ UserDetails
+    // 👉 CÁCH SỬA: generate token từ UserDetails
     public String generateToken(UserDetails userDetails) {
         String email = userDetails.getUsername();
-        // Loại bỏ tiền tố "ROLE_"
+
+        // SỬA: Không cắt bỏ chuỗi "ROLE_" nữa.
+        // Lấy thẳng authority từ UserDetails (User.java trả về ROLE_ADMIN thì lấy ROLE_ADMIN)
         String roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .map(role -> role.startsWith("ROLE_") ? role.substring(5) : role)
-                .collect(Collectors.joining(","));  // Nếu có nhiều role
+                .collect(Collectors.joining(","));
+
         return generateToken(email, roles);
     }
 
-    // Tạo token với claims và subject (email)
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -73,25 +71,19 @@ public class JwtUtils {
                 .compact();
     }
 
-    // Kiểm tra token hợp lệ
     public boolean validateToken(String token, UserDetails userDetails) {
         final String email = extractEmail(token);
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    // Trích xuất email
     public String extractEmail(String token) {
-
         return extractClaim(token, Claims::getSubject);
     }
 
-    // Trích xuất role
     public String extractRole(String token) {
-
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
-    // Trích xuất claims
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -113,4 +105,3 @@ public class JwtUtils {
         return extractClaim(token, Claims::getExpiration);
     }
 }
-

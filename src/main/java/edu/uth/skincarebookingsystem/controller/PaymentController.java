@@ -22,7 +22,7 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<PaymentResponse> createPayment(@Valid @RequestBody PaymentRequest payment) {
         return ResponseEntity.ok(paymentService.createPayment(payment));
     }

@@ -84,9 +84,11 @@ public class AppointmentController {
     }
 
     @PutMapping("/{appointmentId}/complete")
-    @PreAuthorize("hasAnyRole('SPECIALIST', 'ADMIN')")
+    // SỬA: Thêm 'CUSTOMER' vào đây để khách hàng có quyền tự hoàn tất đơn hàng sau khi thanh toán
+    @PreAuthorize("hasAnyRole('SPECIALIST', 'ADMIN', 'CUSTOMER')")
     public ResponseEntity<AppointmentDto> completeAppointment(@PathVariable("appointmentId") Long appointmentId) {
-        // Hàm này set cứng status là COMPLETED luôn
+        // Lưu ý: Status sau khi thanh toán nên là CONFIRMED hoặc COMPLETED tùy logic của bạn.
+        // Ở đây giữ nguyên là COMPLETED như bạn muốn.
         AppointmentDto updated = appointmentService.updateStatus(appointmentId, Appointment.AppointmentStatus.COMPLETED);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }

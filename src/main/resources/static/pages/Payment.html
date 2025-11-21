@@ -433,12 +433,14 @@
         return;
       }
 
+      // --- PHẦN SỬA ĐỔI ---
       const paymentRequest = {
-        appointmentId: selectedAppointment.id,
-        amount: selectedAppointment.price,
-        paymentMethod: 'CASH',
-        status: 'CONFIRMED'
+        appointmentId: parseInt(selectedAppointment.id), // Ép kiểu về số nguyên (Long)
+        amount: parseFloat(selectedAppointment.price),   // Ép kiểu về số thực (BigDecimal)
+        paymentMethod: 'CASH'
+        // XÓA DÒNG: status: 'CONFIRMED' -> Vì Backend tự set là PAID rồi, gửi lên sai enum sẽ bị lỗi 400
       };
+      // --------------------
 
       // Gửi POST request tạo thanh toán
       fetch('http://localhost:8080/api/payment', {
@@ -451,14 +453,15 @@
       })
               .then(response => {
                 if (!response.ok) {
-                  throw new Error('Failed to confirm payment');
+                  // Đọc lỗi chi tiết từ server để dễ debug hơn
+                  return response.text().then(text => { throw new Error(text) });
                 }
                 return response.json();
               })
               .then(data => {
                 console.log('Payment successful:', data);
 
-                // ✅ Gửi yêu cầu cập nhật trạng thái lịch hẹn sang COMPLETED
+                // Sau khi thanh toán thành công, gọi API update trạng thái Appointment thành COMPLETED
                 return fetch(`http://localhost:8080/api/appointments/${selectedAppointment.id}/complete`, {
                   method: 'PUT',
                   headers: {
@@ -468,21 +471,23 @@
                 });
               })
               .then(updateResponse => {
+                // ... phần xử lý phía sau giữ nguyên ...
                 if (!updateResponse.ok) {
                   throw new Error('Failed to update appointment status');
                 }
                 return updateResponse.json();
               })
               .then(updatedAppointment => {
-                console.log('Appointment status updated:', updatedAppointment);
+                // ... giữ nguyên ...
                 document.getElementById('success-message').style.display = 'block';
                 document.getElementById('error-message').style.display = 'none';
                 setTimeout(() => {
-                  window.location.href = 'booking.html';
+                  window.location.href = 'booking.html'; // Hoặc chuyển hướng về trang lịch sử
                 }, 3000);
               })
               .catch(error => {
                 console.error('Error:', error);
+                alert("Lỗi thanh toán: " + error.message); // Hiện thông báo lỗi rõ ràng
                 document.getElementById('error-message').style.display = 'block';
                 document.getElementById('success-message').style.display = 'none';
               });

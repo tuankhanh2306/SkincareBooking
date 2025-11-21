@@ -30,3 +30,41 @@ services:
       # Spring Boot của bạn đã đọc cổng này (server.port=${PORT:8080})
       - key: PORT
         value: 8080
+        # --- SECURITY CONFIG ---
+      - key: ENABLE_FIREWALL
+        value: "true"
+      - key: ALLOWED_IPS
+        value: "0.0.0.0/0"   # hoặc IP trường bạn
+
+      - key: SECURE_HEADERS
+        value: "true"
+      - key: XSS_PROTECTION
+        value: "true"
+
+      # --- LOAD BALANCER (SIMULATION) ---
+      - key: LB_STRATEGY
+        value: "round-robin"
+      - key: LB_HEALTHCHECK
+        value: "/api/health"
+
+      # --- NETWORK CONFIG ---
+      - key: NETWORK_MODE
+        value: "public"       # bạn đang dùng external
+      - key: REQUEST_TIMEOUT
+        value: "5000"
+
+      # --- DATABASE TUNING ---
+      - key: DB_POOL_MAX
+        value: "10"
+      - key: DB_POOL_MIN
+        value: "1"
+      - key: DB_IDLE_TIMEOUT
+        value: "30000"
+      - key: DB_CONN_TIMEOUT
+        value: "2000"
+
+      # --- LOGGER ---
+      - key: LOG_LEVEL
+        value: "info"
+      - key: LOG_FORMAT
+        value: "json"

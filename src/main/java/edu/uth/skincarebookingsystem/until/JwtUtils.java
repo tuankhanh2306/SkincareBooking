@@ -41,19 +41,22 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Tạo token từ email và role string (giữ nguyên logic này)
+    // 👉 Method 1: Sửa logic để đảm bảo luôn có ROLE_
     public String generateToken(String email, String role) {
         Map<String, Object> claims = new HashMap<>();
+        // Tự động thêm ROLE_ nếu chưa có (Fix lỗi người dùng truyền string "ADMIN")
+        if (!role.startsWith("ROLE_")) {
+            role = "ROLE_" + role;
+        }
         claims.put("role", role);
         return createToken(claims, email);
     }
 
-    // 👉 CÁCH SỬA: generate token từ UserDetails
+    // 👉 Method 2: Sửa logic generate từ UserDetails
     public String generateToken(UserDetails userDetails) {
         String email = userDetails.getUsername();
 
-        // SỬA: Không cắt bỏ chuỗi "ROLE_" nữa.
-        // Lấy thẳng authority từ UserDetails (User.java trả về ROLE_ADMIN thì lấy ROLE_ADMIN)
+        // SỬA QUAN TRỌNG: Giữ nguyên authority, KHÔNG dùng substring cắt bỏ nữa
         String roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));

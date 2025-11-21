@@ -43,11 +43,7 @@ public class Security {
                         .requestMatchers("/", "/pages/**", "/favicon.ico", "/css/**", "/js/**", "/images/**").permitAll() // Gom gọn lại
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
-
-                        // Dùng hasAnyRole và hasRole thay vì hasAuthority
-                        .requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
-                        .requestMatchers("/api/services/**").hasRole("ADMIN")
+                        .requestMatchers("/", "/pages/**", "/*.html").permitAll()
 
                         .anyRequest().authenticated()
                 )// <-- Kết thúc chuỗi authorize

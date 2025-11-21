@@ -267,6 +267,19 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const loginForm = document.getElementById('login-form');
+        // --- HÀM GIẢI MÃ TOKEN (Thêm hàm này vào file JS của bạn) ---
+        function parseJwt(token) {
+            try {
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                return null;
+            }
+        }
 
         loginForm.addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -282,25 +295,35 @@
             try {
                 const response = await fetch('http://localhost:8080/api/auth/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('role', data.role || '');
-                    alert('Đăng nhập thành công!');
-                    if(data.role === "ADMIN"){
-                        window.location.href = 'manager2.html';
+
+                    // Lấy token
+                    const token = data.token || (data.result && data.result.token);
+                    if (!token) { alert("Lỗi token"); return; }
+                    localStorage.setItem('token', token);
+
+                    // Giải mã token lấy role (Dùng hàm parseJwt tôi đã gửi ở câu trả lời trước)
+                    const decoded = parseJwt(token);
+                    const userRole = decoded ? decoded.role : "";
+
+                    console.log("ROLE TIM THAY:", userRole); // <-- Xem log này in ra cái gì
+
+                    // Logic điều hướng
+                    // userRole bây giờ chắc chắn là "ROLE_ADMIN" (do backend đã sửa)
+                    if (userRole === "ROLE_ADMIN" || userRole === "ADMIN") {
+                        alert('đăng nhập thành công');
+                        window.location.href = '/pages/manager2.html'; // <-- Bây giờ Server đã cho phép file này
                     }
-                    else if(data.role === "SPECIALIST"){
-                        window.location.href = 'SpecialistPersonal.html';
+                    else if (userRole === "ROLE_SPECIALIST" || userRole === "SPECIALIST") {
+                        window.location.href = '/pages/SpecialistPersonal.html';
                     }
-                    else{
-                        window.location.href = '../home.html';
+                    else {
+                        window.location.href = '../home.html'; // Hoặc trang user
                     }
 
                 } else {
@@ -308,8 +331,7 @@
                     alert('Đăng nhập thất bại: ' + (error.message || 'Sai thông tin đăng nhập.'));
                 }
             } catch (error) {
-                console.error('Lỗi khi gửi yêu cầu đăng nhập:', error);
-                alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                console.error('Lỗi:', error);
             }
         });
     });

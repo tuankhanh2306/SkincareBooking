@@ -611,7 +611,7 @@
         const token = localStorage.getItem('token');
 
         // Tạo URL với tpham số truy vấn
-        const url = `htt://localhost:8080/api/appointments/check-availability?specialistId=${specialistId}&appointmentDateTime=${encodeURIComponent(appointmentDateTime)}`;
+        const url = `http://localhost:8080/api/appointments/check-availability?specialistId=${specialistId}&appointmentDateTime=${encodeURIComponent(appointmentDateTime)}`;
 
         return fetch(url, {
             method: "GET",
@@ -722,22 +722,22 @@
                     // Kiểm tra tính khả dụng của chuyên viên trước khi đặt lịch
                     checkSpecialistAvailability(specialistId, appointmentDateTime)
                         .then(isAvailable => {
-                            if (!isAvailable) {
-                                // Nếu chuyên viên không khả dụng vào thời gian đã chọn
-                                showMessage("Bác sĩ đã có lịch hẹn vào thời gian này. Vui lòng chọn thời gian khác hoặc chọn bác sĩ khác.", "danger");
+                            // 1. LOGIC KIỂM TRA LỊCH
+                            if (isAvailable === false) { // So sánh tường minh
+                                showMessage("Bác sĩ đã có lịch hẹn vào thời gian này. Vui lòng chọn thời gian khác.", "danger");
 
-                                // Reset các trường đã chọn
+                                // Reset giờ và nút bấm
                                 document.getElementById('appointmentTime').value = '';
+                                if(submitBtn) {
+                                    submitBtn.disabled = false;
+                                    submitBtn.textContent = originalBtnText;
+                                }
 
-                                // Khôi phục nút submit
-                                submitBtn.disabled = false;
-                                submitBtn.textContent = originalBtnText;
-
-                                return Promise.reject(new Error("Bác sĩ đã có lịch hẹn vào thời gian này"));
+                                // Ngắt chuỗi Promise
+                                throw new Error("CONFLICT_SCHEDULE");
                             }
 
-                            // Nếu chuyên viên khả dụng, tiếp tục quá trình đặt lịch
-                            // Tạo đối tượng dữ liệu cuộc hẹn theo cấu trúc AppointmentDto
+                            // 2. LOGIC ĐẶT LỊCH (Khi bác sĩ rảnh)
                             const appointmentData = {
                                 customerId: customerId,
                                 specialistId: parseInt(specialistId),
@@ -746,60 +746,81 @@
                                 status: "PENDING"
                             };
 
-                            // Lấy token xác thực
                             const token = localStorage.getItem('token');
 
-                            // Gửi yêu cầu đặt lịch đến server
                             return fetch("http://localhost:8080/api/appointments", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                     "Authorization": "Bearer " + token
                                 },
-                                body: JSON.stringify(appointmentData),
-                                credentials: "include"
+                                body: JSON.stringify(appointmentData)
                             });
                         })
-                        .then(response => {
+                        .then(async response => {
+                            // 3. XỬ LÝ KẾT QUẢ TRẢ VỀ
                             if (!response.ok) {
+                                // Xử lý lỗi 401/403 (Hết phiên)
                                 if (response.status === 401 || response.status === 403) {
-                                    // Xử lý phiên hết hạn
                                     localStorage.removeItem('token');
-                                    alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
                                     window.location.href = 'login.html';
                                     throw new Error('Phiên đăng nhập đã hết hạn');
                                 }
-                                return response.json().then(err => {
-                                    throw new Error(err.message || "Có lỗi khi gửi đặt lịch");
-                                });
+
+                                // Xử lý đọc lỗi an toàn (Dù server trả về Text hay JSON đều đọc được)
+                                const errorText = await response.text();
+                                try {
+                                    // Cố gắng parse JSON nếu có thể
+                                    const errorJson = JSON.parse(errorText);
+                                    throw new Error(errorJson.message || errorText);
+                                } catch (e) {
+                                    // Nếu không phải JSON, dùng text thuần
+                                    throw new Error(errorText || "Có lỗi khi gửi đặt lịch");
+                                }
                             }
                             return response.json();
                         })
                         .then(data => {
-                            // Hiển thị thông báo thành công
+                            // 4. THÀNH CÔNG
                             showMessage("Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn qua email.", "success");
 
-                            // Reset form ngoại trừ thông tin người dùng
-                            document.getElementById('appointmentDate').value = tomorrowFormatted; // Đặt lại giá trị mặc định
+                            // Reset form
+                            if(document.getElementById('appointmentDate')) {
+                                document.getElementById('appointmentDate').value = tomorrowFormatted;
+                            }
                             document.getElementById('appointmentTime').value = '';
                             document.getElementById('serviceId').selectedIndex = 0;
-                            document.getElementById('specialistId').selectedIndex = 0;
+                            // document.getElementById('specialistId').selectedIndex = 0; // Có thể giữ lại bác sĩ để user đặt tiếp nếu muốn
                         })
                         .catch(error => {
-                            console.error("Lỗi:", error);
-                            // Hiển thị thông báo lỗi (nếu chưa chuyển hướng và không phải lỗi đã xử lý)
-                            if (error.message !== 'Phiên đăng nhập đã hết hạn' &&
-                                error.message !== "Bác sĩ đã có lịch hẹn vào thời gian này") {
-                                showMessage( "Lịch bạn đặt của bác sĩ hiện k còn trống vui lòng chọn thời gian kh", "danger");
+                            console.error("Lỗi chi tiết:", error);
+
+                            // 5. HIỂN THỊ LỖI CHÍNH XÁC
+                            if (error.message === "CONFLICT_SCHEDULE") {
+                                showMessage("Đặt lịch không thành công! do lịch hiện tại bạn chọn không còn trống", "failed");
+                                // Lỗi do mình tự ném ở bước 1, không cần làm gì thêm vì đã showMessage rồi
+                                return;
                             }
+
+                            if (error.message === 'Phiên đăng nhập đã hết hạn') {
+                                alert(error.message);
+                                return;
+                            }
+
+                            // Hiển thị lỗi thực tế từ Server giúp bạn dễ debug
+                            let displayMsg = error.message;
+                            if(displayMsg === 'Failed to fetch') displayMsg = "Không thể kết nối đến Server";
+
+                            showMessage("Lỗi: " + displayMsg, "danger");
                         })
                         .finally(() => {
-                            // Khôi phục nút submit nếu người dùng vẫn ở trang này và nếu chưa xử lý trong catch
-                            if (document.getElementById("bookingForm") && submitBtn.disabled) {
+                            // 6. LUÔN MỞ LẠI NÚT BẤM
+                            if (submitBtn) {
                                 submitBtn.disabled = false;
                                 submitBtn.textContent = originalBtnText;
                             }
                         });
+
                 });
             }
         }

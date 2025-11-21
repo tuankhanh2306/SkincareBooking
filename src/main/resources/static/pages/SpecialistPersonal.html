@@ -978,6 +978,36 @@
         }
     }
 
+    // Function to mark an appointment as completed
+    async function markAsCompleted(appointmentId) {
+        if (confirm('Are you sure you want to mark this appointment as completed?')) {
+            try {
+                // Gọi API cập nhật trạng thái thành COMPLETED
+                const response = await fetch(`${API_BASE_URL}/appointments/${appointmentId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({status: 'COMPLETED'})
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to complete appointment: ${response.status}`);
+                }
+
+                showSuccess('Appointment marked as completed successfully');
+
+                // Tải lại dữ liệu để cập nhật giao diện
+                await loadConfirmedAppointments();
+                await loadAppointments();
+            } catch (error) {
+                console.error('Error marking appointment as completed:', error);
+                showError('Failed to mark appointment as completed');
+            }
+        }
+    }
+
     // Function to cancel an appointment
     async function cancelAppointment(appointmentId) {
         if (confirm('Are you sure you want to cancel this appointment?')) {

@@ -7,11 +7,13 @@ import edu.uth.skincarebookingsystem.service.AppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -76,6 +78,7 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDto> updateAppointmentStatus(
             @PathVariable("appointmentId") Long appointmentId,
             @RequestBody AppointmentDto appointmentDto) {
+        // Hàm này lấy status từ body gửi lên (JSON) để cập nhật
         AppointmentDto updated = appointmentService.updateStatus(appointmentId, appointmentDto.getStatus());
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
@@ -83,6 +86,7 @@ public class AppointmentController {
     @PutMapping("/{appointmentId}/complete")
     @PreAuthorize("hasAnyRole('SPECIALIST', 'ADMIN')")
     public ResponseEntity<AppointmentDto> completeAppointment(@PathVariable("appointmentId") Long appointmentId) {
+        // Hàm này set cứng status là COMPLETED luôn
         AppointmentDto updated = appointmentService.updateStatus(appointmentId, Appointment.AppointmentStatus.COMPLETED);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
@@ -92,6 +96,19 @@ public class AppointmentController {
     public ResponseEntity<Void> deleteAppointment(@PathVariable("appointmentId") Long appointmentId) {
         appointmentService.deleteAppointment(appointmentId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("/check-availability")
+    public ResponseEntity<Boolean> checkAvailability(
+            @RequestParam Long specialistId,
+
+            // THÊM DÒNG NÀY: @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime appointmentDateTime
+    ) {
+        // Gọi service xử lý...
+        boolean isAvailable = appointmentService.checkAvailability(specialistId, appointmentDateTime);
+        return ResponseEntity.ok(isAvailable);
     }
 
 

@@ -195,4 +195,18 @@ public class AppointmentService {
         return convertToDto(appointmentRepository.save(appointment));
     }
 
+    // ... bên trong class AppointmentService ...
+
+    public boolean checkAvailability(Long specialistId, LocalDateTime appointmentDateTime) {
+        // Giả sử mỗi cuộc hẹn kéo dài 1 tiếng (hoặc bạn có thể tùy chỉnh logic này)
+        LocalDateTime start = appointmentDateTime;
+        LocalDateTime end = appointmentDateTime.plusMinutes(60); // Ví dụ dịch vụ 60 phút
+
+        // Kiểm tra trong database xem có cuộc hẹn nào trùng giờ (và chưa bị hủy) không
+        boolean exists = appointmentRepository.existsBySpecialistIdAndDateRange(specialistId, start, end);
+
+        // Nếu tồn tại cuộc hẹn (exists = true) -> Bận -> Trả về false (không available)
+        // Nếu không tồn tại (exists = false) -> Rảnh -> Trả về true
+        return !exists;
+    }
 }

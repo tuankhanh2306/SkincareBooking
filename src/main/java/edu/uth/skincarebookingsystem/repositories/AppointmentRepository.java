@@ -6,6 +6,7 @@ import edu.uth.skincarebookingsystem.models.Specialist;
 import edu.uth.skincarebookingsystem.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -31,4 +32,18 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByStatus(Appointment.AppointmentStatus status);
 
     List<Appointment> findBySpecialistIdAndStatusNot(Long specialistId, Appointment.AppointmentStatus appointmentStatus);
+
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END " +
+            "FROM Appointment a " +
+            "WHERE a.specialist.id = :specialistId " +
+            "AND a.status != 'CANCELLED' " +
+            "AND (" +
+            "   (a.appointmentDate BETWEEN :start AND :end) OR " +
+            "   (:start BETWEEN a.appointmentDate AND a.appointmentDate + 1 HOUR)" + // Lưu ý: Logic +1 hour này cần khớp với logic lưu DB
+            ")")
+    boolean existsBySpecialistIdAndDateRange(
+            @Param("specialistId") Long specialistId,
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
+    );
 }

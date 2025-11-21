@@ -280,7 +280,7 @@
                 throw new Error("Bạn chưa đăng nhập");
             }
 
-            const response = await fetch('http://localhost:8080/api/specialists', {
+            const response = await fetch('https://skincare-booking-system.onrender.com/api/specialists', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

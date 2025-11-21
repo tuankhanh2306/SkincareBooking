@@ -284,7 +284,7 @@
 
     // Function to load pending appointments
     function loadPendingAppointments() {
-      fetch('http://localhost:8080/api/appointments', {
+      fetch('https://skincare-booking-system.onrender.com/api/appointments', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -326,7 +326,7 @@
       // Map appointments to fetch service details
       const appointmentPromises = appointments.map(async appointment => {
         try {
-          const response = await fetch(`http://localhost:8080/api/services/${appointment.serviceId}`, {
+          const response = await fetch(`https://skincare-booking-system.onrender.com/api/services/${appointment.serviceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -443,7 +443,7 @@
       // --------------------
 
       // Gửi POST request tạo thanh toán
-      fetch('http://localhost:8080/api/payment', {
+      fetch('https://skincare-booking-system.onrender.com/api/payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -462,7 +462,7 @@
                 console.log('Payment successful:', data);
 
                 // Sau khi thanh toán thành công, gọi API update trạng thái Appointment thành COMPLETED
-                return fetch(`http://localhost:8080/api/appointments/${selectedAppointment.id}/complete`, {
+                return fetch(`https://skincare-booking-system.onrender.com/api/appointments/${selectedAppointment.id}/complete`, {
                   method: 'PUT',
                   headers: {
                     'Content-Type': 'application/json',
@@ -497,7 +497,7 @@
 
     // Function to create payment
     function createPayment(paymentRequest) {
-      fetch('http://localhost:8080/api/payment', {
+      fetch('https://skincare-booking-system.onrender.com/api/payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

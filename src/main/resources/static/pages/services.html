@@ -306,7 +306,7 @@
         }
         servicesContainer.innerHTML = '<div class="loading">Đang tải dịch vụ...</div>';
 
-        fetch("http://localhost:8080/api/services", {
+        fetch("https://skincare-booking-system.onrender.com/api/services", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token,

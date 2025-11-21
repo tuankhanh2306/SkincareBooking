@@ -370,7 +370,7 @@
         const token = localStorage.getItem('token');
 
         // Gọi API để lấy danh sách dịch vụ
-        fetch('http://localhost:8080/api/services', {
+        fetch('https://skincare-booking-system.onrender.com/api/services', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -420,7 +420,7 @@
         const token = localStorage.getItem('token');
 
         // Gọi API để lấy danh sách chuyên gia/bác sĩ
-        fetch('http://localhost:8080/api/specialists', {
+        fetch('https://skincare-booking-system.onrender.com/api/specialists', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -475,7 +475,7 @@
     // Hàm lấy thông tin người dùng hiện tại
     function fetchCurrentUserInfo() {
         const token = localStorage.getItem('token');
-        fetch("http://localhost:8080/api/users/me", {
+        fetch("https://skincare-booking-system.onrender.com/api/users/me", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -530,7 +530,7 @@
     function fetchCustomerInfo(id){
         const token = localStorage.getItem('token')
 
-        fetch("http://localhost:8080/api/users/{id}",{
+        fetch("https://skincare-booking-system.onrender.com/api/users/{id}",{
             method: "GET",
             header:{
                 "Authorization" : "Bearer" + token,
@@ -611,7 +611,7 @@
         const token = localStorage.getItem('token');
 
         // Tạo URL với tpham số truy vấn
-        const url = `http://localhost:8080/api/appointments/check-availability?specialistId=${specialistId}&appointmentDateTime=${encodeURIComponent(appointmentDateTime)}`;
+        const url = `https://skincare-booking-system.onrender.com/api/appointments/check-availability?specialistId=${specialistId}&appointmentDateTime=${encodeURIComponent(appointmentDateTime)}`;
 
         return fetch(url, {
             method: "GET",
@@ -748,7 +748,7 @@
 
                             const token = localStorage.getItem('token');
 
-                            return fetch("http://localhost:8080/api/appointments", {
+                            return fetch("https://skincare-booking-system.onrender.com/api/appointments", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",

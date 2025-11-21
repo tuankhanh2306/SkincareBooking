@@ -515,7 +515,7 @@
     }
 
     function loadSpecialistData(specialistId) {
-      fetch(`http://localhost:8080/api/specialists/${specialistId}`, {
+      fetch(`https://skincare-booking-system.onrender.com/api/specialists/${specialistId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -621,7 +621,7 @@
       };
 
       // Send feedback
-      fetch('http://localhost:8080/api/feedback', {
+      fetch('https://skincare-booking-system.onrender.com/api/feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -793,8 +793,8 @@
                             // document.getElementById('specialistId').selectedIndex = 0; // Có thể giữ lại bác sĩ để user đặt tiếp nếu muốn
                         })
                         .catch(error => {
-                            console.error("Lỗi chi tiết:", error);
 
+                            showMessage("Đặt lịch không thành công! do lịch hiện tại bạn chọn không còn trống", "failed");
                             // 5. HIỂN THỊ LỖI CHÍNH XÁC
                             if (error.message === "CONFLICT_SCHEDULE") {
                                 showMessage("Đặt lịch không thành công! do lịch hiện tại bạn chọn không còn trống", "failed");

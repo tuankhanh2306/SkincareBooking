@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DataSeedingConfig {
 
     // --- ADMIN: Lấy từ biến môi trường (Để bảo mật khi deploy thật) ---
-    @Value("${SEED_ADMIN_EMAIL:admin@example.com}") // Mặc định nếu không có env
+    @Value("${SEED_ADMIN_EMAIL:admin@example.com}")
     private String adminEmail;
 
     @Value("${SEED_ADMIN_PASSWORD:admin123}")
@@ -23,6 +23,7 @@ public class DataSeedingConfig {
 
     @Value("${SEED_ADMIN_PHONE:0850000001}")
     private String adminPhone;
+
 
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository, PasswordEncoder passwordEncoder) {

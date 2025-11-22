@@ -1,33 +1,54 @@
 services:
   - type: web
     name: skincare-booking-system
-    plan: free
-    # Thay 'java' bằng 'docker'
     runtime: docker
+    region: singapore
+    plan: starter
+    numInstances: 2
 
-    # Bạn không cần buildCommand hay startCommand
-    # Render sẽ tự động build từ Dockerfile
+    healthCheckPath: /actuator/health
 
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
 
-      # Database - Cần nhập tay trên Dashboard
-      - key: DATABASE_URL
-        sync: false
-      - key: DATABASE_USERNAME
-        sync: false
-      - key: DATABASE_PASSWORD
-        sync: false
+      - key: HIBERNATE_DDL_AUTO
+        value: validate
 
-      # Secrets - Cần nhập tay trên Dashboard
-      - key: JWT_SECRET
-        sync: false
-      - key: OPENAI_API_KEY
-        sync: false
-
-      # Cung cấp PORT cho file Dockerfile
-      # Spring Boot của bạn đã đọc cổng này (server.port=${PORT:8080})
       - key: PORT
         value: 8080
-       
+
+      # DB → Render tự sinh
+      - key: DATABASE_URL
+        fromDatabase:
+          name: skincare-db
+          property: connectionString
+
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: skincare-db
+          property: user
+
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: skincare-db
+          property: password
+
+      # Secrets
+      - key: JWT_SECRET
+        sync: false
+
+      - key: SPRING_AI_OPENAI_API_KEY
+        sync: false
+
+      # Cloudflare IP Ranges
+      - key: CF_IP_RANGES
+        sync: false
+
+databases:
+  - name: skincare-db
+    plan: starter
+    region: singapore
+    version: "16"
+    databaseName: skincare_db_data
+    user: skincare_db_user

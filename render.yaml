@@ -30,3 +30,4 @@ services:
       # Spring Boot của bạn đã đọc cổng này (server.port=${PORT:8080})
       - key: PORT
         value: 8080
+       
